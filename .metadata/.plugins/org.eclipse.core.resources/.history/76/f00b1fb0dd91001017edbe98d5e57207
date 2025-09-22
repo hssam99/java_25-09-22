@@ -1,0 +1,553 @@
+package studentManager;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class StudentController implements StudentProgram {
+
+	Scanner sc = new Scanner(System.in);
+
+	public int menuPrint(Scanner scan) {
+		// TODO Auto-generated method stub
+		System.out.println("--menu--");
+		System.out.println("1.학생 등록|2.학생리스트|3.검색");
+		System.out.println("4.수강정보검색|5.수강신청|6.수강철회");
+		System.out.println("7.종료");
+		System.out.print("menu > ");
+		return scan.nextInt();
+	}
+
+//	private final int STDTOTAL = 10; // 등록 가능한 학생 수
+//	private final int SUBTOTAL = 9; // 등록된 강좌 수
+
+//	private Student[] stdList = new Student[STDTOTAL]; // 학생 리스트
+//	private int cnt = 0; // stdList index를 처리하기 위한 변수
+//	private Subject[] subList = new Subject[SUBTOTAL]; // 강좌 리스트
+	
+	private ArrayList<Student> stdList = new ArrayList<>();
+	private int cnt = 0;
+	private ArrayList<Subject> subList = new ArrayList<>();
+	
+
+	// 수강 가능한 강좌 리스트 생성
+	public void makeSubjectList() {
+		
+		subList.add(new Subject("111", "JAVA", "2025-08-01 ~ 2025-08-30", "3hrs", "Oh", "A강의실"));
+		subList.add(new Subject("212", "C", "2025-09-01 ~ 2025-09-30", "3hrs", "Kim", "C강의실"));
+		subList.add(new Subject("333", "DB", "2025-10-01 ~ 2026-03-30", "6hrs", "Lee", "G강의실"));
+		subList.add(new Subject("428", "C++", "2025-10-01 ~ 2026-02-30", "6hrs", "Oh", "G강의실"));
+		subList.add(new Subject("512", "python", "2025-09-01 ~ 2025-10-30", "9hrs", "Lee", "A강의실"));
+		subList.add(new Subject("688", "AI", "2025-10-01 ~ 2025-12-30", "6hrs", "Kim", "A강의실"));
+		subList.add(new Subject("709", "JAVA", "2025-12-01 ~ 2026-06-30", "3hrs", "Jo", "B강의실"));
+		subList.add(new Subject("812", "C", "2025-08-15 ~ 2025-10-15", "8hrs", "Hong", "B강의실"));
+		subList.add(new Subject("988", "DB", "2025-08-25 ~ 2025-12-25", "10hrs", "Jo", "C강의실"));
+		
+
+//		subList[0] = new Subject("111", "JAVA", "2025-08-01 ~ 2025-08-30", "3hrs", "Oh", "A강의실");
+//		subList[1] = new Subject("212", "C", "2025-09-01 ~ 2025-09-30", "3hrs", "Kim", "C강의실");
+//		subList[2] = new Subject("333", "DB", "2025-10-01 ~ 2026-03-30", "6hrs", "Lee", "G강의실");
+//		subList[3] = new Subject("428", "C++", "2025-10-01 ~ 2026-02-30", "6hrs", "Oh", "G강의실");
+//		subList[4] = new Subject("512", "python", "2025-09-01 ~ 2025-10-30", "9hrs", "Lee", "A강의실");
+//		subList[5] = new Subject("688", "AI", "2025-10-01 ~ 2025-12-30", "6hrs", "Kim", "A강의실");
+//		subList[6] = new Subject("709", "JAVA", "2025-12-01 ~ 2026-06-30", "3hrs", "Jo", "B강의실");
+//		subList[7] = new Subject("812", "C", "2025-08-15 ~ 2025-10-15", "8hrs", "Hong", "B강의실");
+//		subList[8] = new Subject("988", "DB", "2025-08-25 ~ 2025-12-25", "10hrs", "Jo", "C강의실");
+	}
+	
+	// 디버그용 학생 리스트
+	@Override
+	public void makeStudentList() {
+		
+		stdList.add(new Student("20180840", "HONG", 27, "010-7103-5400", "wirye"));
+		stdList.add(new Student("20201001", "KIM", 22, "010-1234-5210", "gangnam"));
+		stdList.add(new Student("20240810", "KIM", 24, "010-3948-1093", "yongsan"));
+		stdList.add(new Student("20221112", "LEE", 25, "010-5678-1080", "yongsan"));
+		stdList.add(new Student("20221101", "KANG", 20, "010-9156-4527", "gangnam"));
+		
+		
+//		stdList[cnt++] = new Student("20180840", "HONG", 27, "010-7103-5400", "wirye");
+//		stdList[cnt++] = new Student("20201001", "KIM", 22, "010-1234-5210", "gangnam");
+//		stdList[cnt++] = new Student("20240810", "KIM", 24, "010-3948-1093", "yongsan");
+//		stdList[cnt++] = new Student("20221112", "LEE", 25, "010-5678-1080", "yongsan");
+//		stdList[cnt++] = new Student("20221101", "KANG", 20, "010-9156-4527", "gangnam");
+	}
+	
+	
+	
+	public boolean checkId(String tmpId) {
+		// 중복된 학번 검사
+		for(Student s : stdList) {
+			if(s.getStdId().equals(tmpId)) {
+				return true; // 학번 존재
+			}
+		}
+		return false; // 학번 없음
+	}
+	
+	
+
+	// 학생 등록 기능 (1번)
+	@Override
+	public void insertStudent(Scanner sc) {
+		Student std = new Student();
+		System.out.print("학번>");
+		String tmpId = sc.next();
+;
+		if(checkId(tmpId)) {
+			System.out.println("이미 존재하는 학번입니다.");
+			return;
+		}
+	
+		std.setStdId(tmpId);
+		System.out.print("이름>");
+		std.setStdName(sc.next());
+		System.out.print("나이>");
+		std.setStdAge(sc.nextInt());
+		System.out.print("핸드폰번호>");
+		std.setStdPhNum(sc.next());
+		System.out.print("주소>");
+		std.setStdAdd(sc.next());
+
+		stdList.add(std);
+		System.out.println("학생 정보가 등록되었습니다.");
+
+//		if (cnt > STDTOTAL) {
+//			System.out.println("더 이상 등록할 수 없습니다.");
+//		} else {
+//			Student std = new Student();
+//
+//			System.out.print("학번>");
+//			String tmpId = sc.next();
+//			// 중복된 학번 검사
+//			for (int i = 0; i < cnt; i++) {
+//				if (stdList[i].getStdId().equals(tmpId)) {
+//					System.out.println("이미 존재하는 학번입니다.");
+//					return;
+//				}
+//			}
+//			std.setStdId(tmpId);
+//			System.out.print("이름>");
+//			std.setStdName(sc.next());
+//			System.out.print("나이>");
+//			std.setStdAge(sc.nextInt());
+//			System.out.print("핸드폰번호>");
+//			std.setStdPhNum(sc.next());
+//			System.out.print("주소>");
+//			std.setStdAdd(sc.next());
+//
+//			stdList[cnt] = std;
+//			cnt++;
+//			System.out.println("학생 정보가 등록되었습니다.");
+//		}
+
+	}
+
+
+	// 등록된 학생리스트 출력 (2번)
+	@Override
+	public void printStudent() {
+		// TODO Auto-generated method stub
+
+		System.out.println("========================학생리스트========================");
+		int i = 0;
+		for(Student s : stdList) {
+			System.out.println((i + 1) + "|  " + s.getStdName() + "(" + s.getStdId()+ ")\t"
+					+s.getStdAge() + "\t" + s.getStdPhNum()+ "\t" + s.getStdAdd());
+			i++;
+		}
+		 
+		// 이름(학번) 나이 핸드폰번호 주소 출력
+//		for (int i = 0; i < cnt; i++) {
+//			System.out.println((i + 1) + "|  " + stdList[i].getStdName() + "(" + stdList[i].getStdId() + ")\t"
+//					+ stdList[i].getStdAge() + "\t" + stdList[i].getStdPhNum() + "\t" + stdList[i].getStdAdd());
+//
+//		}
+
+	}
+
+//	// 키워드 검색 후 학생 정보 출력 (3번)
+//	@Override
+//	public void searchStudent(Scanner sc) {
+//		// TODO Auto-generated method stub
+//
+//		System.out.print("검색어 입력 >");
+//		String keyword = sc.next().toUpperCase();
+//
+//		int j = 1;
+//		for (int i = 0; i < cnt; i++) {
+//			if (keyword.equals(stdList[i].getStdId().toUpperCase())
+//					|| keyword.equals(stdList[i].getStdName().toUpperCase())
+//					|| keyword.equals(Integer.toString(stdList[i].getStdAge()))
+//					|| stdList[i].getStdPhNum().contains(keyword)
+//					|| stdList[i].getStdAdd().toUpperCase().contains(keyword)) {
+//
+//				System.out.println((j) + "|  " + stdList[i].getStdName() + "(" + stdList[i].getStdId() + ")\t"
+//						+ stdList[i].getStdAge() + "\t" + stdList[i].getStdPhNum() + "\t" + stdList[i].getStdAdd());
+//				j++;
+//
+//			} else {
+////				continue;
+//			}
+//		}
+//
+//	}
+
+	// 학생의 학번을 입력받아 그 학생의 번지수를 리턴하는 메소드
+	public int searchStudentID(String stdId) {
+		
+		for(Student s : stdList) {
+			if(s.getStdId().equals(stdId)) {
+				return stdList.indexOf(s);
+			}
+		}
+		
+		return -1;
+		
+		
+//		int index = -1;
+//		for (int i = 0; i < cnt; i++) {
+//			if (stdList[i].getStdId().equals(stdId)) {
+//				index = i;
+//			}
+//		}
+//		return index;
+	}
+
+	
+	
+	// 학생 수강기록 출력 (3번)
+	@Override
+	public void searchStudentInfo(Scanner sc) {
+		
+		System.out.print("학번 >");
+		int index = searchStudentID(sc.next()); // 학번 검사. 존재하지 않는 학번이면 -1 리턴
+
+		if (index == -1) {
+			System.out.println("해당 학번이 존재하지 않습니다.");
+			return;
+		}
+
+		System.out.println(stdList.get(index).getStdName()+ "의 수강정보");
+		stdList.get(index).printStdSubList();
+		
+//		System.out.print("학번 >");
+//		int index = searchStudentID(sc.next()); // 학번 검사. 존재하지 않는 학번이면 -1 리턴
+//
+//		if (index == -1) {
+//			System.out.println("해당 학번이 존재하지 않습니다.");
+//			return;
+//		}
+//
+//		System.out.println(stdList[index].getStdName() + "의 수강정보");
+//		stdList[index].printStdSubList();
+	}
+
+	// 학생 정보 수정 (4번)
+	public void updateStudent(Scanner sc) {
+		
+		System.out.print("학번 >");
+		String tmpId = sc.next();
+		int index = searchStudentID(tmpId); // 학번 검사. 존재하지 않는 학번이면 -1 리턴
+
+		if (index == -1) {
+			System.out.println("해당 학번이 존재하지 않습니다.");
+			return;
+		}
+		
+		System.out.print("학번 >");
+		if(checkId(tmpId)) {
+			System.out.println("이미 존재하는 학번입니다. 수정할 수 없습니다.");
+			return;
+		}
+		stdList.get(index).setStdId(tmpId);
+		System.out.print("이름 >");
+		stdList.get(index).setStdName(sc.next());
+		System.out.print("나이 >");
+		stdList.get(index).setStdAge(sc.nextInt());
+		System.out.print("핸드폰번호>");
+		stdList.get(index).setStdPhNum(sc.next());
+		System.out.print("주소>");
+		stdList.get(index).setStdAdd(sc.next());
+
+		System.out.println("학생 정보가 수정되었습니다.");
+	}
+	
+	// 학생 삭제 (5번)
+	public void deleteStudent(Scanner sc) {
+		System.out.print("학번 >");
+		int index = searchStudentID(sc.next()); // 학번 검사. 존재하지 않는 학번이면 -1 리턴
+
+		if (index == -1) {
+			System.out.println("해당 학번이 존재하지 않습니다.");
+			return;
+		}
+		
+		stdList.remove(index);
+		System.out.println("학생이 삭제되었습니다.");
+	}
+	
+	
+	// 수강과목 추가 (6번)
+	@Override
+	public void insertSubject(Scanner sc) {
+		// TODO Auto-generated method stub
+
+		System.out.print("학번 >");
+		
+		// stdList[index] > 내가 원하는 학생 객체
+		int index = searchStudentID(sc.next()); // 학번 검사. 존재하지 않는 학번이면 -1 리턴
+		
+		if (index == -1) {
+			System.out.println("해당 학번이 존재하지 않습니다.");
+			return;
+		}
+		
+		// 강좌 리스트 출력
+		System.out.println("과목코드\t과목명\t수강날짜\t\t\t수강시간\t강사명\t장소");
+		System.out.println("----------------------------------------------------------------");
+		for (Subject s : subList) {
+			s.printSubjectInfo();
+		}
+		
+		// 강좌 등록
+		System.out.print("강좌등록>");
+		String keySubId = sc.next();
+		boolean result = false;
+		Subject tmpSub = new Subject();
+		
+		// 학생이 입력한 과목코드가 실제 강좌리스트에 존재하는 과목코드인지 검사
+		for (Subject s : subList) {
+			if (s.getSubId().equals(keySubId)) {
+				tmpSub = s;
+				result = true;
+			}
+		}
+		
+		// 학생이 입력한 과목코드를 실제 강좌리스트에서 찾을 수 없을 경우
+		if (result == false) {
+			System.out.println("잘못된 과목코드를 입력했습니다.");
+			return;
+		}
+		
+		stdList.get(index).addSub(tmpSub);
+		System.out.println("등록을 완료했습니다.");
+		
+		
+//		System.out.print("학번 >");
+//
+//		// stdList[index] > 내가 원하는 학생 객체
+//		int index = searchStudentID(sc.next()); // 학번 검사. 존재하지 않는 학번이면 -1 리턴
+//
+//		if (index == -1) {
+//			System.out.println("해당 학번이 존재하지 않습니다.");
+//			return;
+//		}
+//
+//		// 이미 강좌가 5개가 등록되어있을 경우
+//		if (stdList[index].getCnt() >= 5) {
+//			System.out.println("5개를 등록했습니다. 더 이상 추가할 수 없습니다.");
+//			return;
+//		}
+//
+//		// 강좌 리스트 출력
+//		System.out.println("과목코드\t과목명\t수강날짜\t\t\t수강시간\t강사명\t장소");
+//		System.out.println("----------------------------------------------------------------");
+//		for (int i = 0; i < SUBTOTAL; i++) {
+//			subList[i].printSubjectInfo();
+//		}
+//
+//		// 강좌 등록
+//		System.out.print("강좌등록>");
+//		String keySubId = sc.next();
+//		int tmpIndex = -1;
+//
+//		// 학생이 입력한 과목코드가 실제 강좌리스트에 존재하는 과목코드인지 검사
+//		for (int i = 0; i < SUBTOTAL; i++) {
+//			if (subList[index].getSubId().equals(keySubId)) {
+//				tmpIndex = i;
+//			}
+//		}
+//
+//		// 학생이 입력한 과목코드를 실제 강좌리스트에서 찾을 수 없을 경우
+//		if (tmpIndex == -1) {
+//			System.out.println("잘못된 과목코드를 입력했습니다.");
+//			return;
+//		}
+//
+//		stdList[index].addSub(new Subject(subList[tmpIndex]));
+////		stdList[i].addSub(new Subject(subList[sc.nextInt() - 1])); 
+////		stdList[i].getStdSub()[?]=new Subject(subList[sc.nextInt()-1]);
+////		stdList[i].addSubject(sc.next());
+//		System.out.println("등록을 완료했습니다.");
+
+	}
+
+	
+	
+	// 수강과목 취소 (7번)
+	@Override
+	public void deleteSubject(Scanner sc) {
+		System.out.print("학번 >");
+		int index = searchStudentID(sc.next()); // 학번 검사. 존재하지 않는 학번이면 -1 리턴
+		
+		if (index == -1) {
+			System.out.println("해당 학번이 존재하지 않습니다.");
+			return;
+		}
+		
+		stdList.get(index).printStdSubList(); // 한 학생이 수강하고 있는 기록 출력
+		System.out.print("취소할 강좌 과목코드 선택>");
+		stdList.get(index).delSub(sc.next());
+		
+		
+//		System.out.print("학번 >");
+//		int index = searchStudentID(sc.next()); // 학번 검사. 존재하지 않는 학번이면 -1 리턴
+//
+//		if (index == -1) {
+//			System.out.println("해당 학번이 존재하지 않습니다.");
+//			return;
+//		}
+//
+//		stdList[index].printStdSubList(); // 한 학생이 수강하고 있는 기록 출력
+//		System.out.print("취소할 강좌 과목코드 선택>");
+//		stdList[index].delSub(sc.next());
+
+	}
+
+
+
+	public void subjectStudentList(Scanner sc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	// searchStudentId 메소드를 사용하지 않았을 경우
+
+//	// 학생 수강기록 출력 (메소드 없음)
+//	public void searchStudentInfoTemp(Scanner scan) {
+//		// TODO Auto-generated method stub
+//		System.out.print("학번 >");
+//		String keyword = sc.next();
+//		boolean result = false;
+//
+//		for (int i = 0; i < cnt; i++) {
+//			if (keyword.equals(stdList[i].getStdId())) {
+//				System.out.println(stdList[i].getStdName() + "의 수강정보");
+//				stdList[i].printStdSubList();
+//				result = true;
+//			} else {
+//				continue;
+//			}
+//		}
+//
+//		if (result == false) {
+//			System.out.println("해당 학번이 존재하지 않습니다.");
+//		}
+//
+//	}	
+
+//	@Override
+//	public void insertSubject(Scanner sc) {
+//		// TODO Auto-generated method stub
+//
+//		System.out.print("학번 >");
+//		String keyID = sc.next(); // 학번
+//		boolean result = false;
+//
+//		// 학번을 입력받고 해당 학번 검색 후 강좌 등록
+//		for (int i = 0; i < cnt; i++) {
+//			// 학번을 통해 등록되어있는 학생인지 조회
+//			if (stdList[i].getStdId().equals(keyID)) {
+//				if(stdList[i].getCnt()>=5) {
+//					System.out.println("5개를 등록했습니다. 더 이상 추가할 수 없습니다.");
+//					return;
+//				}
+//				System.out.println("과목코드\t과목명\t수강날짜\t\t\t수강시간\t강사명\t장소");
+//				System.out.println("----------------------------------------------------------------");
+//				for(int j = 0;j<SUBTOTAL;j++) {
+//					subList[j].printSubjectInfo(); // 수강 가능한 강좌 리스트 출력
+//				}
+//				System.out.print("강좌등록>");
+//				String keySubId = sc.next();
+//				int tmpIndex=-1;
+//				
+//				// 학생이 입력한 과목코드가 실제 강좌리스트에 존재하는 과목코드인지 검사
+//				for(int j=0; j<SUBTOTAL;j++) {
+//					if(subList[j].getSubId().equals(keySubId)) {
+//						tmpIndex=j;
+//					}
+//				}
+//				
+//				// 학생이 입력한 과목코드를 실제 강좌리스트에서 찾을 수 없을 경우
+//				if(tmpIndex==-1) {
+//					System.out.println("잘못된 과목코드를 입력했습니다.");
+//					return;
+//				}
+//				
+//				stdList[i].addSub(new Subject(subList[tmpIndex]));
+////				stdList[i].addSub(new Subject(subList[sc.nextInt() - 1])); 
+////				stdList[i].getStdSub()[?]=new Subject(subList[sc.nextInt()-1]);
+////				stdList[i].addSubject(sc.next());
+//				System.out.println("등록을 완료했습니다.");
+//				result = true;
+//			}
+//		}
+//
+//		if (result == false) {
+//			System.out.println("해당 학번이 존재하지 않습니다.");
+//		}
+//
+//	}	
+
+//	@Override
+//	public void deleteSubject(Scanner sc) {
+//		// TODO Auto-generated method stub
+//		
+//		System.out.print("학번 >");
+//		String keyID = sc.next(); // 학번
+//		boolean result = false;
+//		
+//		for (int i = 0; i < cnt; i++) {
+//			// 학번을 통해 등록되어있는 학생인지 조회
+//			if (stdList[i].getStdId().equals(keyID)) {
+//				stdList[i].printStdSubList(); // 한 학생이 수강하고 있는 기록 출력
+//				System.out.print("취소할 강좌 과목코드 선택>");
+//				stdList[i].delSub(sc.next());
+//				result = true;
+//			}
+//		}
+//		
+//		
+//		
+//		if (result == false) {
+//			System.out.println("해당 학번이 존재하지 않습니다.");
+//		}
+//
+//	}
+
+}

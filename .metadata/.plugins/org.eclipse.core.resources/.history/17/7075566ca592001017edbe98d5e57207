@@ -1,0 +1,21 @@
+package day15;
+
+public class Order<K,V> extends Sale<K, V> {
+	
+	private int qty; // 물건 수량
+	private int total; // 전체가격
+	
+	
+	public Order() {}
+	public Order(Sale s, int qty) {
+		super(s.getProductName(),s.getPrice());
+		this.qty=qty;
+		this.total = qty * (int)s.getPrice();
+		
+	}
+	
+	
+	
+	
+
+}

@@ -1,0 +1,10 @@
+package wordBook;
+
+public class WordBookMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

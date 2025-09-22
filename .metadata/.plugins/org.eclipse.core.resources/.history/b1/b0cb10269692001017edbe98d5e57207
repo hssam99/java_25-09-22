@@ -1,0 +1,9 @@
+package day15;
+
+public class SaleController {
+	
+	public  void makeProductList() {
+		
+	}
+
+}

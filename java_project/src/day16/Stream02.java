@@ -1,0 +1,55 @@
+package day16;
+
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
+public class Stream02 {
+
+	public static void main(String[] args) {
+		
+		
+		ArrayList<Integer> list = new ArrayList<>();
+		for(int i = 0; i<10 ; i++) {
+			list.add((int)(Math.random()*10)+1);
+		}
+		System.out.println(list);
+		
+		
+		
+		
+		list.stream(); // 배열 스트림은 Arrays.stream(arr) 등 복잡한데 리스트는 그냥 사용할 수 있음
+		list.stream()
+			.forEach(n -> System.out.print(n+" "));
+		System.out.println();
+		// 중복제거
+		list.stream()
+			.distinct()
+			.forEach(n -> System.out.print(n+" "));
+		System.out.println();
+		// 정렬, 중복제거
+		list.stream()
+			.distinct()
+			.sorted()
+			.forEach(n -> System.out.print(n+" "));
+		System.out.println();
+
+		// 중복 제거 후 합계
+		int sum = list.stream()
+				.distinct()
+				.mapToInt(n->n.intValue()) // Integer > int
+				.sum(); // sum은 int 일때 사용가능
+		System.out.println(sum);
+		
+		
+		
+		// 스트림 객체 생성
+		Stream<Integer> stream01 = Stream.of(10,20,30,40,50); // new 대신 of
+		int sum2 = stream01.mapToInt(n -> n.intValue())
+						.sum();
+		System.out.println(sum2);
+		
+		
+
+	}
+
+}

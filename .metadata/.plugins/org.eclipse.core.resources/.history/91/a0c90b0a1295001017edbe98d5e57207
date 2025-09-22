@@ -1,0 +1,14 @@
+package bank;
+
+public class BankMain {
+	
+	
+	// 계좌 : 
+	// 은행 : 신한은행 / 우리은행 / 하나은행
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

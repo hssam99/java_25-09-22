@@ -1,0 +1,192 @@
+package wordBook;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class WordBookController {
+	
+	Scanner sc = new Scanner(System.in);
+	final String path = "/Users/suminhong/web_0826_hsm/memo/word.txt";
+	
+	List<Word> wordBook = new ArrayList<>();
+	
+//	Map<String,List<String>> wordBook = new HashMap<>();
+	
+	
+	public void makeWordList() {
+		List<String> tmpMeaning = new ArrayList<>();
+		tmpMeaning.add("가다");
+		tmpMeaning.add("뛰어가다");
+		wordBook.add(new Word("Go", tmpMeaning));
+		List<String> tmpMeaning2 = new ArrayList<>();
+		tmpMeaning2.add("좋아하다");
+		tmpMeaning2.add("~와같이");
+		wordBook.add(new Word("Like", tmpMeaning2));
+		List<String> tmpMeaning3 = new ArrayList<>();
+		tmpMeaning3.add("놀다");
+		tmpMeaning3.add("희극");
+		wordBook.add(new Word("Play", tmpMeaning3));
+	}
+	
+	
+	
+	
+	// true -> 단어가 존재 , false -> 단어 존재하지 않음
+	public boolean containsWord(String userWord) {
+		for(Word word : wordBook) {
+			if(word.getWord().toLowerCase().equals(userWord.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	// 단어가 존재하면 단어장에서 검색된 word의 index 반환
+	public int returnWordIndex(String userWord) {
+		int index = -1;
+		for(Word word : wordBook) {
+			if(word.getWord().toLowerCase().equals(userWord.toLowerCase())) {
+				index = wordBook.indexOf(word);
+			}
+		}
+		return index;
+	}
+	
+
+	// 단어 하나 출력
+	public void printSingleWord(Word userWord) {
+		int i = 1;
+		System.out.println(userWord.getWord());
+		
+		for(String meaning : userWord.getMean()) {
+			System.out.println(i++ +") "+ meaning);
+		}
+	}
+	
+
+	public void addWord(Scanner sc) {
+		System.out.print("단어 > ");
+		String word = sc.next();
+		System.out.println("단어 뜻 추가를 완료했다면 0을 입력하세요");
+		Word wordset = new Word();
+		List<String> wordMeaning = new ArrayList<>();
+		String meaning = "";
+		while(true) {
+			System.out.print("뜻 > ");
+			meaning = sc.next();
+			
+			if(meaning.equals("0")) {
+				break;
+			}
+			
+			wordMeaning.add(meaning);
+		}
+		
+		wordset.setWord(word);
+		wordset.setMean(wordMeaning);
+	}
+
+	
+	
+	public void searchWord(Scanner sc) {
+		System.out.print("검색단어 > ");
+		String userWord = sc.next();
+		if(containsWord(userWord)) {
+			int index = returnWordIndex(userWord);
+			printSingleWord(wordBook.get(index));
+		}else {
+			System.out.println("등록되지 않은 단어입니다.");
+		}
+		System.out.println();
+	}
+
+	
+	public void UpdateWord(Scanner sc) {
+		System.out.print("검색단어 > ");
+		String userWord = sc.next();
+		if(containsWord(userWord)) {
+			int index = returnWordIndex(userWord); // 검색한 단어 인덱스
+			printSingleWord(wordBook.get(index)); // 검색한 단어 듯 출력
+			
+			int meaningIndex = -1;
+			
+			while(true) {
+				System.out.print("수정할 뜻 번호를 선택하세요(0 입력시 종료) > ");
+				meaningIndex = sc.nextInt()-1;
+				if(meaningIndex == -1) {
+					break;
+				}
+				System.out.print("새로운 뜻 > ");
+				String newMeaning = sc.next();
+				
+				wordBook.get(index).getMean().set(meaningIndex, newMeaning);
+				System.out.println("단어가 수정되었습니다.");
+				
+			}
+		}else {
+			System.out.println("단어를 찾을 수 없습니다.");
+		}
+	}
+
+	
+	public void printWord() {
+		System.out.println("-------WORD BOOK-------");
+		int i = 1;
+		for(Word word : wordBook) {
+			System.out.print(i++ +". ");
+			printSingleWord(word);
+		}
+		System.out.println("-----------------------");
+		System.out.println();
+	}
+
+	
+	
+	public void deleteWord(Scanner sc) {
+		System.out.print("검색단어 > ");
+		String userWord = sc.next();
+		if(containsWord(userWord)) {
+			int index = returnWordIndex(userWord);
+			wordBook.remove(index);
+			System.out.println("단어가 삭제되었습니다.");
+		}else {
+			System.out.println("단어를 찾을 수 없습니다.");
+		}
+		
+	}
+
+	public void makeWordFile() throws IOException {
+		
+		BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+		StringBuffer sb = new StringBuffer();
+		sb.append("--Word Book--\n");
+		
+		for(Word w : wordBook) {
+			sb.append(w);
+			sb.append("\n");
+		}
+		
+		bw.write(sb.toString());
+		System.out.println(sb.toString());
+		bw.close();
+		
+//		FileWriter fw = new FileWriter(path);
+//		int i = 1, j=1;
+//		for(Word word : wordBook) {
+//			fw.write(i+"| "+word.getWord()+"\n");
+//			List<String> wordMeaning = word.getMean(); 
+//			
+//			for(String meaning : wordMeaning) {
+//				fw.write(j+") "+ meaning+"\n");
+//				j++;
+//			}
+//			i++;
+//		}
+//		fw.close();
+	}
+
+}

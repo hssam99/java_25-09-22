@@ -1,0 +1,125 @@
+package bank;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Bank {
+	private String companyName; // 은행 이름
+	private String bankCode;
+	private List<Account> customerList = new ArrayList<>(); // 해당 은행 고객 리스트
+
+	
+	public Bank(String name, String bankCode){
+		this.companyName = name;
+		this.bankCode = bankCode;
+	}
+	
+	
+	
+	// accountNum: 사용자가 입력한 계좌정보
+	// 해당 은행에 사용자가 입력한 계좌정보가 존재하면 해당 계좌의 인덱스 리턴
+	// 존재하지 않으면 -1 리턴
+	public int findAccount(String accountNum) {
+		int index = -1;
+		
+		for(Account acc : customerList ) {
+			if(acc.getAccountNum().equals(accountNum)) {
+				index = customerList.indexOf(acc); // 해당 계좌 인덱스 리턴
+			}
+		}
+		return index;
+	}
+	
+	
+	// 계좌번호 랜덤 생성 
+	public String makeAccountNum() {
+		int randomNum = (int)(Math.random()*1000)+1; // 1~10 랜덤 넘버 생성
+		
+		// 은행 고유번호 - 랜덤넘버 - 사용자식별번호
+		String accountNum = bankCode+Integer.toString(randomNum)+
+				Integer.toString(customerList.size());
+		return accountNum;
+	}
+	
+	
+	// 계정추가
+	public void addAccount(Scanner sc) {
+		// 계좌주명 입력
+		System.out.print("계좌주명 > ");
+		String name = sc.next();
+
+		String accountNum = makeAccountNum();
+		
+		// 계좌 생성
+		Account newAccount = new Account(getCompanyName(), name, accountNum,0);
+		customerList.add(newAccount);
+		
+		
+		// 사용자 히스토리 로그 생성
+		try {
+			newAccount.makeAccountFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(getCompanyName()+"계좌가 등록되었습니다.");
+		
+		
+	}
+	
+	
+	// 사용자 히스토리 로그 생성
+	public void makeAccountFile(String fileName, Account userAccount)
+			throws IOException {
+		BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+		bw.append("======= 계좌 정보 =======");
+		bw.newLine();
+		bw.append("은행: "+userAccount.getBankName());
+		bw.newLine();
+		bw.append("계좌주명: "+userAccount.getName());
+		bw.newLine();
+		bw.append("계좌번호: "+userAccount.getAccountNum());
+		// 100 100 100 을 100 - 100 - 1 로 기록하기
+		
+		bw.newLine();
+		bw.append("(계좌 기록)");
+		bw.newLine();
+		bw.append("-----------------------");
+		bw.newLine();
+		bw.close();
+	}	
+	
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public List<Account> getCustomerList() {
+		return customerList;
+	}
+	public void setCustomerList(List<Account> customerList) {
+		this.customerList = customerList;
+	}
+	public String getBankCode() {
+		return bankCode;
+	}
+	public void setBankCode(String bankCode) {
+		this.bankCode = bankCode;
+	}
+	@Override
+	public String toString() {
+		return "Bank [companyName=" + companyName + ", bankCode=" + bankCode + ", customerList=" + customerList + "]";
+	}
+
+
+
+	
+
+}

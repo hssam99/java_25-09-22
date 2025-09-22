@@ -1,0 +1,51 @@
+package day16;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class StreamEx02 {
+
+	public static void main(String[] args) {
+		/*
+		 * 여행사 상품
+		 * 여행비용이 15세 이상은 100만원, 15세 미만은 80만원 계산
+		 * 고객 5명이 패키지 여행을 떠난다고 가정했을 경우
+		 * 
+		 * 1. 비용을 계산 => 출력
+		 * 2. 고객명단 출력
+		 * 
+		 * Customer 클래스 생성 ArrayList 관리
+		 * 
+		 * 예)
+		 * 이름: 홍길동	나이:40	비용:100
+		 * 이름: 봉미선	나이:38	비용:100
+		 * 이름: 신짱구 	나이:15	비용:100
+		 * 이름: 신짱아	나이:5	비용:80
+		 * 이름: 흰둥이	나이:7	비용:80
+		 * 
+		 * 총 여행경비 : 000원
+		 * 
+		 * 3. 20세 이상 성인 고객 명단 출력 => 이름순으로 정렬
+		 */
+		
+		List<Customer> customerList = new ArrayList();
+		
+		customerList.add(new Customer("홍길동", 40));
+		customerList.add(new Customer("봉미선", 38));
+		customerList.add(new Customer("신짱구", 15));
+		customerList.add(new Customer("신짱아", 5));
+		customerList.add(new Customer("흰둥이", 7));
+		
+		
+		customerList.stream().forEach(n->System.out.println(n));
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+}

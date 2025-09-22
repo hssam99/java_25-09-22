@@ -1,0 +1,73 @@
+package day17;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class FileWordController {
+	
+	Scanner sc = new Scanner(System.in);
+	Map<String,List<String>> wordBook = new HashMap<>();
+	
+
+	public void addWord(Scanner sc) {
+		System.out.print("단어 > ");
+		String word = sc.next();
+		System.out.println("단어 뜻 추가를 완료했다면 0을 입력하세요");
+		List<String> wordMeaning = new ArrayList<>();
+		String meaning = "";
+		while(true) {
+			System.out.print("뜻 > ");
+			meaning = sc.next();
+			
+			if(meaning.equals("0")) {
+				break;
+			}
+			
+			wordMeaning.add(meaning);
+		}
+		
+		wordBook.put(word, wordMeaning);
+		
+	}
+
+	public void searchWord() {
+		
+	}
+
+	public void UpdateWord() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void printWord() {
+		int i = 1, j=1;
+		for(String word : wordBook.keySet()) {
+			System.out.println(i+"| "+word);
+			
+			List<String> wordMeaning = wordBook.get(word); //
+			
+			for(String meaning : wordMeaning) {
+				System.out.println("-"+ meaning);
+				j++;
+			}
+			
+			i++;
+			
+		}
+		
+	}
+
+	public void deleteWord() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void makeWordFile() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

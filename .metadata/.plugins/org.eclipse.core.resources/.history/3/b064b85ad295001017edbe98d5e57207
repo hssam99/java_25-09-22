@@ -1,0 +1,52 @@
+package bank;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Bank {
+	private String companyName; // 은행 이름
+	private List<Account> customerList = new ArrayList<>(); // 해당 은행 고객 리스트
+
+	
+	public Bank(String name){
+		this.companyName = name;
+	}
+	
+	
+	
+	// accountNum: 사용자가 입력한 계좌정보
+	// 해당 은행에 사용자가 입력한 계좌정보가 존재하면 해당 계좌의 인덱스 리턴
+	// 존재하지 않으면 -1 리턴
+	public int findAccount(String accountNum) {
+		int index = -1;
+		
+		for(Account acc : customerList ) {
+			if(acc.getAccountNum().equals(accountNum)) {
+				index = customerList.indexOf(acc); // 해당 계좌 인덱스 리턴
+			}
+		}
+		return index;
+	}
+	
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public List<Account> getCustomerList() {
+		return customerList;
+	}
+	public void setCustomerList(List<Account> customerList) {
+		this.customerList = customerList;
+	}
+	@Override
+	public String toString() {
+		return "Bank [companyName=" + companyName + ", customerList=" + customerList + "]";
+	}
+	
+	
+
+}

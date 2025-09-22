@@ -1,0 +1,38 @@
+package day03;
+
+import java.util.Scanner;
+
+public class For04 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// 약수 : 나누어서 떨어지는 수의 집합 
+		// 6의 약수 : 1,2,3,6
+		// 6을 입력하면 1,2,3,6, 출력
+		
+		Scanner sc = new Scanner(System.in);
+
+		int input=0;
+		
+//		System.out.print("enter the number>>");
+//		input = sc.nextInt();
+		
+		int i =1;
+		while(i<=input) {
+			System.out.print("enter the number>>");
+			input = sc.nextInt();
+			if(input%i==0) {
+				System.out.println(i);
+			}
+			i++;
+		}
+		
+		
+		
+		
+		
+	}
+	
+
+}

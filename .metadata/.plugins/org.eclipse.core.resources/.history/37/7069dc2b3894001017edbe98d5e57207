@@ -1,0 +1,33 @@
+package day17;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class File02 {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		
+		FileWriter fw = new FileWriter("test.txt");
+		for( int i = 0; i<=10; i++) {
+			String data = i+". test!!\n";
+			fw.write(data);
+			fw.write("I/O TestFile Output!!\n");
+		}
+		
+		fw.close();
+		
+		
+		// 추가모드 : 기존 파일에 데이터를 쓰려고 할 때
+		FileWriter fw2 = new FileWriter("test.txt", true);
+		
+		for(int i = 11; i<=20; i++) {
+			String data = i + ". test!!\n";
+			fw2.write(null)
+		}
+		
+		fw2.close()
+
+	}
+
+}

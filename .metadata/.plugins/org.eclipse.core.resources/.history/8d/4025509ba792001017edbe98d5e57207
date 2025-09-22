@@ -1,0 +1,30 @@
+package day16;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Lambda02 {
+
+	public static void main(String[] args) {
+
+		Map<String, Integer> map = new HashMap<>();
+		map.put("James", 89);
+		map.put("Mike", 96);
+		map.put("Lisa", 72);
+		map.put("Amy", 88);
+		map.put("Kate", 92);
+		
+		int sum = 0;
+		
+		// 매개변수는 2개까지, 3개 이상 불가능
+		map.forEach((a,b)->{
+			System.out.println(a+":"+b);
+		});
+		
+	}
+	
+	
+	
+	
+
+}

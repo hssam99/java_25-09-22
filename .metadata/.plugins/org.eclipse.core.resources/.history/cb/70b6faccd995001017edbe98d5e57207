@@ -1,0 +1,177 @@
+package bank;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Account {
+	private String bankName; // 은행명
+	private String name; // 계좌주명
+	private String accountNum; // 계좌번호
+	private int balance; // 잔액
+	
+	final String path = "/Users/suminhong/web_0826_hsm/memo/bankAccount/";
+	
+	
+	public Account() {}
+	
+	
+	public Account(String bankName, String name, String accountNum, int balance) {
+		super();
+		this.bankName = bankName;
+		this.name = name;
+		this.accountNum = accountNum;
+		this.balance = balance;
+	}
+	
+	// 입금
+	public boolean deposit(int amount) {
+		balance += amount;
+		return true; // 정상 처리
+	}
+	
+	// 출금
+	public boolean withdraw(int amount) {
+		
+		if(balance<amount) {
+			System.out.println("계좌에 잔액이 부족합니다. 출금할 수 없습니다.");
+			return false; // 비정상 처리
+		}
+		
+		balance -= amount;
+		return true; // 정사처리
+	}
+	
+
+	// 계좌 로그 파일명 생성
+	public String getFileName() {
+		return path+bankName+"_"+name+"_"+accountNum+".txt";
+	}
+	
+	
+	// 사용자 히스토리 로그 생성
+	public void makeAccountFile()
+			throws IOException {
+		BufferedWriter bw = new BufferedWriter(new FileWriter(getFileName()));
+		bw.append("======= 계좌 정보 =======");
+		bw.newLine();
+		bw.append("은행: " + bankName);
+		bw.newLine();
+		bw.append("계좌주명: "+name);
+		bw.newLine();
+		bw.append("계좌번호: "+accountNum);
+		bw.newLine();
+		bw.append("(계좌 기록)");
+		bw.newLine();
+		bw.append("-----------------------");
+		bw.newLine();
+		bw.close();
+	}	
+	
+	
+	
+	// 계좌 로그 기록
+	public void saveTransactionLog(int action, int amount, Account senderAcc, Account receiverAcc) {
+		switch (action) {
+		case 0: // deposit 입금
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter(getFileName(), true)); // 이어쓰기
+				bw.append("[입금]: "+amount+"원을 입금했습니다");
+				bw.append(" \t 잔액: "+balance+"원");
+				bw.newLine();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+			
+		case 1: // withdraw 출금
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter(getFileName(), true)); // 이어쓰기
+				bw.append("[출금]: "+amount+"원을 출금했습니다");
+				bw.append(" \t 잔액: "+balance+"원");
+				bw.newLine();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+			
+		case 2: // transfer withdraw 송금(출금)
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter(senderAcc.getFileName(), true)); // 이어 쓰기
+				bw.append("[출금]: "+receiverAcc.getName()+"님에게 "+amount+"원을 송금했습니다");
+				bw.append(" \t 잔액: "+balance+"원");
+				bw.newLine();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;	
+			
+		case 3: // transfer deposit 송금(입금)
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter(receiverAcc.getFileName(), true)); // 이어 쓰기
+				bw.append("[입금]: "+senderAcc.getName()+"님이 "+amount+"원을 송금했습니다");
+				bw.append(" \t 잔액: "+balance+"원");
+				bw.newLine();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+			
+
+		default:
+			break;
+		}
+	}
+	
+	
+	
+	public void printAccountFile() {
+		try (BufferedReader br = new BufferedReader(new FileReader(getFileName()))) {
+            String line;
+            while ((line = br.readLine()) != null) { // 한 줄씩 읽기
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	
+	public String getBankName() {
+		return bankName;
+	}
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAccountNum() {
+		return accountNum;
+	}
+	public void setAccountNum(String accountNum) {
+		this.accountNum = accountNum;
+	}
+	public int getBalance() {
+		return balance;
+	}
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+	@Override
+	public String toString() {
+		return "Account [bankName=" + bankName + ", name=" + name + ", accountNum=" + accountNum + ", balance="
+				+ balance + "]";
+	}
+	
+}

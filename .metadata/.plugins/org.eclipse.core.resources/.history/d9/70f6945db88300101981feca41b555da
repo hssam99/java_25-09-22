@@ -1,0 +1,66 @@
+package day03;
+
+import java.util.Scanner;
+
+public class For05 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// 공약수 : 두 수의 약수 중 공통된 약수 
+		
+		int num1 = 0, num2 = 0;
+		int temp;
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("input num1:");
+		num1 = sc.nextInt();
+		System.out.print("input num2:");
+		num2 = sc.nextInt();
+		
+		
+		System.out.println(num1+"의 약수");
+		for(int i=1;i<num1;i++) {
+			if(num1%i==0) {
+				System.out.print(i+", ");
+			}
+		}
+		System.out.println(num1);
+		
+		System.out.println(num2+"의 약수");
+		for(int i=1;i<num2;i++) {
+			if(num2%i==0) {
+				System.out.print(i+", ");
+			}
+		}
+		System.out.println(num2);
+		
+		
+		
+		System.out.println(num1+"과 "+num2+"의 공약수");
+//		for(int i=1;i<=num1;i++) {
+//			if(num1%i==0) {
+//				for(int j=1;j<=num2;j++) {
+//					if(num2%j==0&&i==j) {
+//						System.out.println(j);
+//					}
+//				}
+//			}
+//		}
+		
+		int max = 0;
+		
+		for(int i=1;i<=num1;i++) {
+			if(num1%i==0&&num2%i==0) {
+				System.out.print(i+" ");
+				max = i;
+			}
+		}
+		
+		System.out.println();
+		System.out.println(num1+"과 "+num2+"의 공약수:"+max);
+	
+	}
+
+}

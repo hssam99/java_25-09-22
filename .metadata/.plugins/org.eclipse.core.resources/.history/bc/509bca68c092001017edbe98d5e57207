@@ -1,0 +1,41 @@
+package day15;
+
+public class Sale<K,V> {
+	
+	private K productName; // String
+	private V price; // int
+	
+	
+	public Sale(){}
+	
+	public Sale(K productName, V price){
+		this.productName=productName;
+		this.price=price;
+	}
+
+	
+	public K getProductName() {
+		return productName;
+	}
+
+	public void setProductName(K productName) {
+		this.productName = productName;
+	}
+
+	public V getPrice() {
+		return price;
+	}
+
+	public void setPrice(V price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Sale [productName=" + productName + ", price=" + price + "]";
+	}
+	
+	
+	
+
+}

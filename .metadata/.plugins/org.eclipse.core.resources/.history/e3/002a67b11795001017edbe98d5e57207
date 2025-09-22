@@ -1,0 +1,67 @@
+package bank;
+
+import java.util.Scanner;
+
+public class BankMain {
+	
+	
+	// 계좌 : 
+	// 은행 : 신한은행 / 우리은행 / 하나은행
+	
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		BankController bc = new BankController();
+		
+		
+		
+		
+		
+		int input = 0;
+		bc.makeBankList();
+		
+		while(input!=6) {
+			bc.printMenu();
+			System.out.print("선택 > ");
+			try {
+				input = sc.nextInt();
+				
+				switch (input) {
+				case 1: 
+					bc.createAccount(sc);
+					break;
+				case 2: 
+					bc.deposit(sc);
+					break;
+				case 3: 
+					bc.withdraw(sc);
+					break;
+				case 4: 
+					bc.transfer(sc);
+					break;
+				case 5: 
+					bc.printAccountHistory();
+					break;
+				case 6:
+					System.out.println("프로그램을 종료합니다.");
+					return;
+
+				default:
+					System.out.println("존재하지 않는 메뉴입니다.");
+					break;
+				}
+				
+			} catch (Exception e) {
+				System.err.println("잘못된 값을 입력했습니다.");
+			}
+			
+			
+		}
+		
+		
+		
+
+	}
+
+}
