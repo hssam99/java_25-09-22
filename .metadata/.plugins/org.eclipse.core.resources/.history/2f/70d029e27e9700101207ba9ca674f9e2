@@ -1,0 +1,67 @@
+package f1_project;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class PlayerController {
+	
+	DotArtController dac = new DotArtController();
+	
+	// 게임 시작 후 플레이어가 선택한 캐릭터 생성 관련 컨트롤러
+	
+	Scanner sc = new Scanner(System.in); 
+	
+	
+	
+	public void makeConstructorList() {
+		
+	}
+	
+	public void makeDriverList() {
+		
+	}
+	
+	
+	/*
+	 * 	public Circuit(int num, String name, String location, double length) {
+		this.circuitNum = num;
+		this.circuitName = name;
+		this.circuitLocation = location;
+		this.circuitLength = length;
+	}
+	 */
+	
+	
+	
+	
+	
+	public void makeCircuitList() {
+		Circuit silverStone = new Circuit(1,"실버스톤", "영국", 5891);
+		Circuit monza = new Circuit(2,"몬자", "이탈리아", 5793);
+		Circuit monaco = new Circuit(3,"모나코", "모나코", 3337);
+		Circuit shanghai = new Circuit(4,"상하이", "중국", 5451);
+	}
+	
+	
+	
+	
+	public String chooseCircuit(Scanner sc) {
+		dac.printSilverStoneCircuitImage();
+		dac.printMonzaCircuitImage();
+		dac.printShanghaiCircuitImage();
+		dac.printMonacoCircuitImage();
+		
+		System.out.println("1. 실버스톤 | 2. 몬자 | 3. 상하이 | 4. 모나코");
+		System.out.print("써킷을 선택하세요 > ");
+		
+		String circuit = sc.next();
+		
+		return circuit;
+		
+	}
+	
+	
+	
+
+}

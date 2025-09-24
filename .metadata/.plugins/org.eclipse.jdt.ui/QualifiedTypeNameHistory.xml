@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.lang.ArrayIndexOutOfBoundsException"/>
-    <fullyQualifiedTypeName name="java.lang.Exception"/>
-    <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
-    <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
-    <fullyQualifiedTypeName name="day14.PasswordException"/>
-    <fullyQualifiedTypeName name="day14.PasswordTest"/>
-    <fullyQualifiedTypeName name="javax.swing.text.html.HTMLDocument.Iterator"/>
-    <fullyQualifiedTypeName name="day14.Collection"/>
-    <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
-    <fullyQualifiedTypeName name="java.util.Iterator"/>
-    <fullyQualifiedTypeName name="day14.WordController"/>
-    <fullyQualifiedTypeName name="studentManager.Student"/>
-    <fullyQualifiedTypeName name="java.lang.Override"/>
     <fullyQualifiedTypeName name="studentManager.Subject"/>
     <fullyQualifiedTypeName name="javax.swing.text.StyledDocument"/>
     <fullyQualifiedTypeName name="day15.Order"/>
@@ -26,9 +13,7 @@
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="day16.Student"/>
     <fullyQualifiedTypeName name="java.util.stream.Collector"/>
-    <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
     <fullyQualifiedTypeName name="day15.SaleController"/>
-    <fullyQualifiedTypeName name="java.util.Comparator"/>
     <fullyQualifiedTypeName name="day16.Customer"/>
     <fullyQualifiedTypeName name="day17.Category"/>
     <fullyQualifiedTypeName name="day17.Product"/>
@@ -45,14 +30,12 @@
     <fullyQualifiedTypeName name="day18.MyThread3"/>
     <fullyQualifiedTypeName name="day18.JoinTest"/>
     <fullyQualifiedTypeName name="day18.Bank"/>
-    <fullyQualifiedTypeName name="java.lang.Thread"/>
     <fullyQualifiedTypeName name="day18.Thread04"/>
     <fullyQualifiedTypeName name="day18.Hong"/>
     <fullyQualifiedTypeName name="day18.HongWife"/>
     <fullyQualifiedTypeName name="java.lang.InterruptedException"/>
     <fullyQualifiedTypeName name="bank.BankProgram"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
     <fullyQualifiedTypeName name="java.io.FileWriter"/>
@@ -60,4 +43,21 @@
     <fullyQualifiedTypeName name="bank.Account"/>
     <fullyQualifiedTypeName name="javax.print.attribute.standard.PrinterMakeAndModel"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="f1_project.ConstructorController"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.Comparator"/>
+    <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+    <fullyQualifiedTypeName name="f1_project.Course"/>
+    <fullyQualifiedTypeName name="f1_project.CircuitController"/>
+    <fullyQualifiedTypeName name="f1_project.GameController"/>
+    <fullyQualifiedTypeName name="f1_project.MonzaController"/>
+    <fullyQualifiedTypeName name="f1_project.Driver"/>
+    <fullyQualifiedTypeName name="f1_project.MonacoController"/>
+    <fullyQualifiedTypeName name="f1_project.SilverStoneController"/>
+    <fullyQualifiedTypeName name="f1_project.DotArtController"/>
+    <fullyQualifiedTypeName name="f1_project.PlayerController"/>
+    <fullyQualifiedTypeName name="f1_project.Constructor"/>
+    <fullyQualifiedTypeName name="f1_project.SuzukaController"/>
+    <fullyQualifiedTypeName name="f1_project.Circuit"/>
+    <fullyQualifiedTypeName name="java.lang.Thread"/>
 </qualifiedTypeNameHistroy>

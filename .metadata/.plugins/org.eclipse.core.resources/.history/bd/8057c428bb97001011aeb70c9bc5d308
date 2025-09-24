@@ -1,0 +1,57 @@
+package f1_project;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Circuit {
+	int circuitNum; // 써킷넘버
+	String circuitName; // 써킷 이름 ex) 실버스톤, 모나코, 몬자, 상하이
+	String circuitLocation; // 개최 도시, 국가
+	Double circuitLength; // 랩 길이
+	List<Course> courseList = new ArrayList<>(); // 코스정보가 담긴 코스 리스트, 코스는 3개
+	
+	
+	public Circuit() {}
+	
+	public Circuit(int num, String name, String location, double length) {
+		this.circuitNum = num;
+		this.circuitName = name;
+		this.circuitLocation = location;
+		this.circuitLength = length;
+	}
+	
+	
+	
+	public int getCircuitNum() {
+		return circuitNum;
+	}
+	public void setCircuitNum(int circuitNum) {
+		this.circuitNum = circuitNum;
+	}
+	public String getCircuitName() {
+		return circuitName;
+	}
+	public void setCircuitName(String circuitName) {
+		this.circuitName = circuitName;
+	}
+	public String getCircuitLocation() {
+		return circuitLocation;
+	}
+	public void setCircuitLocation(String circuitLocation) {
+		this.circuitLocation = circuitLocation;
+	}
+	public Double getCircuitLength() {
+		return circuitLength;
+	}
+	public void setCircuitLength(Double circuitLength) {
+		this.circuitLength = circuitLength;
+	}
+	public List<Course> getCourseList() {
+		return courseList;
+	}
+	public void setCourseList(List<Course> courseList) {
+		this.courseList = courseList;
+	}
+
+
+}

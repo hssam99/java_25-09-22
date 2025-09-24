@@ -1,0 +1,449 @@
+package f1_project;
+
+import java.io.IOException;
+import java.util.Random;
+import java.util.Scanner;
+
+public class SilverStoneController {
+	
+	CircuitController cc = new CircuitController();
+	DotArtController dac = new DotArtController();
+	GameController gc = new GameController();
+	
+	Scanner sc = new Scanner(System.in);
+	
+	Random random = new Random();
+	
+	private int circuitIndex;
+	public Circuit silverStone;
+	
+	
+	public SilverStoneController(Driver userDriver, int circuitidx) throws InterruptedException, IOException {
+		this.circuitIndex=circuitidx;
+		silverStone = cc.getCircuitList().get(circuitIndex);
+		cc.setWeather(circuitIndex);
+	}
+	
+	
+	
+	public void introCircuit() throws InterruptedException {
+		dac.printSilverStoneCircuitImage();
+		System.out.print("entering Silverstone");
+		gc.printLoadingDot();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+
+		silverStone.printCircuitInfo();
+		System.out.println();
+		System.out.print("Loading");
+		gc.printLoadingDot();
+		System.out.println();
+		System.out.println();
+		
+		System.out.println("============================ GAME START ============================");
+		System.out.println();
+		
+		
+		String txt1 = "안녕하십니까, 오늘은 포뮬러 원의 성지, 영국 그랑프리 현장 실버스톤 서킷에 나와 있습니다.";
+		gc.printStringOnebyOne(txt1);
+		String txt2 = "모터스포츠의 태동지라 불리는 이곳은 1950년, 최초의 F1 월드 챔피언십 레이스가 열린 역사적";
+		gc.printStringOnebyOne(txt2);
+		String txt3 = "인 무대이자, 전 세계 팬들이 손꼽아 기다려온 전통의 레이스입니다.";
+		gc.printStringOnebyOne(txt3);
+		System.out.println();
+		String txt4 = "길게 뻗은 직선과 고속 코너가 이어지는 특유의 레이아웃은 드라이버들의 기량과 머신의 성능을";
+		gc.printStringOnebyOne(txt4);
+		String txt5 = "동시에 시험하는 장소로 유명한데요. 오늘도 수십만 관중의 함성과 함께, 최고의 드라이버들이";
+		gc.printStringOnebyOne(txt5);
+		String txt6 = "다시 한번 이 전설의 서킷을 질주합니다.";
+		gc.printStringOnebyOne(txt6);
+		System.out.println();
+		String txt7 = "잠시 후 펼쳐질 뜨거운 레이스, 영국 그랑프리 실버스톤에서 시작합니다!";
+		gc.printStringOnebyOne(txt7);
+		System.out.println();
+		System.out.println("===================================================================");
+		System.out.println();
+		System.out.println();
+	}
+	
+	
+	public void printCourse1() {
+		System.out.println("======================== Course 1 : COPSE ===========================");
+		System.out.println();
+		String txt1 = "자, 지금 우리는 실버스톤 서킷의 상징, 첫 번째 도전 구간 코프스(Copse)에 다다랐습니다!";
+		gc.printStringOnebyOne(txt1);
+		String txt2 = "이 고속 우회전은 레이스 초반부터 드라이버의 용기와 차량의 안정성을 시험하는 곳이죠.";
+		gc.printStringOnebyOne(txt2);
+		String txt3 = "상당한 속도를 유지할 수 있지만, 안전하게 코너를 빠져나가면서 최적의 라인을 타기 위해선";
+		gc.printStringOnebyOne(txt3);
+		String txt4 = "적정 스피드가 중요합니다. 270~300 km/h 사이로 접근하면 안정적인 코너링이 가능하죠. ";
+		gc.printStringOnebyOne(txt4);
+		System.out.println();
+		System.out.println("=====================================================================");
+		System.out.println();
+		System.out.println();
+	}
+	
+	public void printCourse2() {
+		System.out.println("============================ Course 2 : Maggotts & Becketts  ============================");
+		System.out.println();
+		String txt1 = "이제 실버스톤의 명물, Maggotts & Becketts 구간에 도착했습니다!";
+		gc.printStringOnebyOne(txt1);
+		String txt2 = "연속으로 이어지는 좌우좌우 고속 S자 코너는 드라이버와 차량의 기량을 동시에 시험하는 최정점 구간이죠.";
+		gc.printStringOnebyOne(txt2);
+		String txt3 = "한 치의 라인 선택 실수도 허용되지 않으며, 이 구간을 얼마나 매끄럽게 통과하느냐가 랩 타임을 좌우합니다!";
+		gc.printStringOnebyOne(txt3);
+		String txt4 = "연속 고속 S코너이기 때문에 290~310 km/h 사이로 최대한 안정적으로 한 번에 연결하는 것이 핵심입니다.";
+		gc.printStringOnebyOne(txt4);
+		System.out.println();
+		System.out.println("=========================================================================================");
+		System.out.println();
+		System.out.println();
+	}
+	
+	public void printCourse3() {
+		System.out.println("============================ Course 3 : Hangar Straight  ============================");
+		System.out.println();
+		String txt1 = "실버스톤의 마지막 구간, Hangar Straight입니다!";
+		gc.printStringOnebyOne(txt1);
+		String txt2 = "길게 뻗은 직선 구간에서 드라이버들은 DRS를 활용하며 최대한의 속도를 끌어올리죠.";
+		gc.printStringOnebyOne(txt2);
+		String txt3 = "관중석에서는 한눈에 펼쳐지는 초고속 추월전이 가장 큰 볼거리입니다.";
+		gc.printStringOnebyOne(txt3);
+		String txt4 = "눈 깜짝할 사이에 지나가는 320 km/h 이상의 속도를 체험해보세요!";
+		gc.printStringOnebyOne(txt4);
+		System.out.println();
+		System.out.println("======================================================================================");
+		System.out.println();
+		System.out.println();
+	}
+	
+	
+	public void playSilverstone(Driver driver) throws InterruptedException, IOException {
+		
+		Driver userDriver = CircuitController.pc.getDriverListForGrandPix().get(driver.getDriverNum()-1);
+		introCircuit();
+		
+		
+		
+		// 비가 오면 비올 때 잘 달리는 선수에게 가산점 부여
+	    if(silverStone.getCurrentWeather()==1) { // 비가 오면
+	    	for(Driver d :CircuitController.pc.getDriverListForGrandPix()) {
+	    		
+	    		//비가 오는 날에 강한 선수타입이라면 
+	    		if(d.getWeatherType()==1) {
+//	    			System.out.println(d.getDriverName() + " 선수는 비 오는 날씨에 강한 선수입니다. +3점 가산점 부여!");/////////////////////디버깅 (정상작동)
+	    			d.setCircuitPoint(d.getCircuitPoint() + 3);
+	    		}
+	    	}
+	    }
+	    
+	    
+	    String txt1 = "[TEAM RADIO] : "+userDriver.getDriverName()+" 오늘 날씨를 참고해서 어떤 타이어가 좋을지 선택해줘.";
+	    gc.printStringOnebyOne(txt1);
+	    userDriver.setTire(cc.setUserTire(userDriver)); // user 타이어 지정
+	    cc.generateAiTire(userDriver); // AI 드라이버 타이어 지정
+	    
+
+	    System.out.println();
+	    System.out.println();
+	    
+	    String txt2 = "[TEAM RADIO] : OK! "+userDriver.getDriverName()+" 오늘 경기도 힘내 보자구!!";
+	    gc.printStringOnebyOne(txt2);
+	    
+	    System.out.println();
+	    System.out.println();
+	    
+	    
+		int startTime=cc.start(); // 너무 빨리 눌러서 부정출발하면 -1 리턴
+		
+		// 부정출발 했을 경우
+		if(startTime==-1) {
+			userDriver.setPenalty(userDriver.getPenalty()+1); // 패널티 1 추가 > 추후 마지막에 패널티*5 해서 circuitPoint 감점처리
+			startTime = 905; // 꼴찌로 출발하도록 출발시간 강제 변경
+		}
+		
+		// 스타트 코스
+		userDriver.setCurrentSpeed(startTime); 
+		cc.generateAICurrentSpeeds(userDriver, 300, 900); // AI 드라이버 속도 300~900 사이 지정
+		cc.setStartPoint(); // 스타트 포인트 각 드라이버별로 기록
+		
+		
+		
+		Thread.sleep(1000);
+		System.out.println();
+		System.out.println();
+		
+		
+		System.out.println("PRESS [ENTER] TO CONTINUE");
+		sc.nextLine();
+		
+		
+		// 중간 메시지
+		gc.printRandomMessagesAfterCourse(0); // start courseType 0
+		
+		
+		
+		// 1번 코스 [copse]
+		//public Course(int courseNum, String courseName, int courseType, int bestSpeed)
+		Course course1 = new Course(1, "copse", 2, 290);
+		silverStone.getCourseList().add(course1);
+		
+		printCourse1();
+		
+		System.out.print("속도를 입력하세요 > ");
+		userDriver.setCurrentSpeed(sc.nextInt());
+		sc.nextLine();
+		cc.generateAICurrentSpeeds(userDriver, 270, 300);
+		System.out.println();
+		cc.setCurrentPoint(silverStone.getCourseList().get(0).getBestSpeed()); // get(0) > 1번째 코스
+		
+		
+//		System.out.println(CircuitController.pc.getDriverListForGrandPix()); /////////////////////디버깅 (정상작동)
+		
+		
+		
+		Thread.sleep(1000);
+		System.out.println();
+		System.out.println();
+		
+		
+		System.out.println("PRESS [ENTER] TO CONTINUE");
+		sc.nextLine();
+		
+		
+		// 중간 메시지
+		gc.printRandomMessagesAfterCourse(course1.getCourseType());
+		
+		
+		
+		
+		/// 날씨 체인저 
+		
+		
+		System.out.println("갑자기 날씨가 변합니다...");
+		// 현재 날씨 상태 저장
+	    boolean prevRaining = cc.isRaining();
+//	    System.out.println("디버깅 prevRaining:"+prevRaining); /////////// 디버깅
+	    // 날씨 결정 다시 (날씨 상태 반전)
+	    cc.setRaining(!prevRaining);
+	    silverStone.setCurrentWeather(!prevRaining?1:0);
+
+	    System.out.println(cc.isRaining() ? "비가 내리기 시작합니다. 오늘 경기 반전이 일어날까요?" :
+	    	"아 드디어 구름이 걷히고 해가 나기 시작합니다. 비가 멈췄어요! 경기 양상이 빠르게 달라질 것 같습니다!");
+	    System.out.println();
+	    System.out.println();
+	    System.out.println();
+	    Thread.sleep(500);
+	    
+//	    System.out.println("디버깅 silverStone.getCurrentWeather():"+silverStone.getCurrentWeather()); /////////// 디버깅
+	    
+	    if(silverStone.getCurrentWeather()==1) { // 비가 오면
+	    	for(Driver d :CircuitController.pc.getDriverListForGrandPix()) {
+	    		//비가 오는 날에 강한 선수타입이라면 
+	    		if(d.getWeatherType()==1) {
+//	    			System.out.println("디버깅"+d.getDriverName() + " 선수는 비 오는 날씨에 강한 선수입니다. +3점 가산점 부여!"); /////////////////////디버깅 (정상작동)
+	    			d.setCircuitPoint(d.getCircuitPoint() + 3);
+	    		}
+	    	}
+	    }
+	    
+//		System.out.println("디버깅:"+CircuitController.pc.getDriverListForGrandPix()); /////////////////////디버깅 (정상작동)
+	    
+	    String text1 = "[TEAM RADIO] : Box Box...";
+	    gc.printStringOnebyOne(text1);
+	    String text2 = "[TEAM RADIO] : "+userDriver.getDriverName()+" 날씨가 달라졌어. 타이어를 교체해야 될 거 같아.";
+	    gc.printStringOnebyOne(text2);
+	    System.out.println("타이어를 교체하시겠습니까? [1]Yes  [2]No");
+	    int userChoice = gc.YesOrNo(sc);
+	    if(userChoice==1) {
+	    	userDriver.setTire(cc.setUserTire(userDriver)); // user 타이어 지정
+	    }
+	    cc.generateAiTire(userDriver); // AI 드라이버 타이어 재지정
+	    
+//	    System.out.println("디버깅: ///////// 현재 나의 타이어:"+userDriver.getTire());  /////////////////////디버깅 (정상작동)
+	    
+//		System.out.println("디버깅:"+CircuitController.pc.getDriverListForGrandPix()); /////////////////////디버깅 (정상작동)
+	    
+	    
+		System.out.println("PRESS [ENTER] TO CONTINUE");
+		sc.nextLine();
+		sc.nextLine();
+		
+		
+		
+		// 2번 코스 [MaggottsBecketts]
+		//public Course(int courseNum, String courseName, int courseType, int bestSpeed)
+		Course course2 = new Course(2, "Maggotts&Becketts", 3, 302);
+		silverStone.getCourseList().add(course2);
+		
+		printCourse2();
+		
+		System.out.print("속도를 입력하세요 > ");
+		userDriver.setCurrentSpeed(sc.nextInt());
+		sc.nextLine();
+		cc.generateAICurrentSpeeds(userDriver, 290, 310);
+		System.out.println();
+		cc.setCurrentPoint(silverStone.getCourseList().get(1).getBestSpeed()); // get(1) > 2번째 코스
+		
+		Thread.sleep(1000);
+		System.out.println();
+		System.out.println();
+		
+		
+		System.out.println("PRESS [ENTER] TO CONTINUE");
+		sc.nextLine();
+		
+		// 중간 메시지
+		gc.printRandomMessagesAfterCourse(course2.getCourseType());
+		
+		
+		
+		
+		
+		
+		
+		
+		// 3번 코스 [Hangar Straight]
+		//public Course(int courseNum, String courseName, int courseType, int bestSpeed)
+		Course course3 = new Course(3, "HangarStraight", 1, 330); // 1 직선코스
+		silverStone.getCourseList().add(course3);
+		
+		
+		printCourse3();
+		
+		System.out.print("속도를 입력하세요 > ");
+		userDriver.setCurrentSpeed(sc.nextInt());
+		sc.nextLine();
+		cc.generateAICurrentSpeeds(userDriver, 320, 360);
+		System.out.println();
+		cc.setCurrentPoint(silverStone.getCourseList().get(2).getBestSpeed()); // get(2) > 3번째 코스
+		
+		
+		Thread.sleep(1000);
+		System.out.println();
+		System.out.println();
+		
+		
+		
+		System.out.println("PRESS [ENTER] TO CONTINUE");
+		sc.nextLine();
+		
+		
+		// 중간 메시지
+		gc.printRandomMessagesAfterCourse(course3.getCourseType());
+		
+		
+		
+		
+		// 피날레
+		
+		
+		System.out.println(userDriver.getDriverName() + " 선수 "+userDriver.getCircuitRank()+"위로 들어오고 있습니다!!!!!");
+		gc.printLoadingDot();
+		System.out.println();
+		System.out.println("정말 멋진 성적이네요, 곧 체크 플레그가 휘날립니다!!");
+		gc.printLoadingDot();
+		System.out.println();
+		
+		// 피날레 메시지
+		gc.printRandomMessagesAfterCourse(4);
+		
+		Thread.sleep(1000);
+		System.out.println();
+		System.out.println();
+		
+		
+		// 피날레 이미지 출력
+		
+		dac.printCheckFlag();
+		Thread.sleep(500);
+		dac.printFireWork();
+		Thread.sleep(500);
+		dac.printFinish();
+		
+		
+		Thread.sleep(1000);
+		System.out.println();
+		System.out.println();
+		
+		
+		System.out.println("디버깅"+CircuitController.pc.driverListForGrandPix); /////// ///// ///// ///// ///// /// 디버깅
+		
+		
+		
+		for(Driver d:CircuitController.pc.getDriverListForGrandPix()) {
+			if(d.getPenalty()>0) {
+				
+				int tmp = d.getCircuitPoint()-(d.getPenalty()*5); // 패널티 숫자만큼 -5
+				if(tmp<0) {
+					tmp = 0; // circuitPoint가 패널티 점수보다 낮아 포인트가 음수가 될 경우 0으로 초기화
+				}
+				
+				d.setCircuitPoint(tmp);
+				System.out.println("패널티 실행!");
+			}
+		}
+		
+		System.out.println("디버깅"+CircuitController.pc.driverListForGrandPix); /////// ///// ///// ///// ///// /// 디버깅
+		
+		
+		// 순위 공개
+		
+		System.out.println("======================================================================================");
+		System.out.println();
+		System.out.println(silverStone.getCircuitLocation()+" 그랑프리가 종료되었습니다.");
+		gc.printLoadingDot();
+		System.out.println("잠시 후 "+silverStone.getCircuitName()+" 파이널 순위가 공개됩니다.");
+		gc.printLoadingDot();
+		System.out.println("======================================================================================");
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		dac.printGrandPrixStandingImage();
+		System.out.println("RANK \t DRIVER \t\t TEAM \t\t\t POINT");
+		System.out.println("-------------------------------------------------------------------------------------");
+		System.out.println();
+		cc.printGrandpixStanding();
+		System.out.println();
+		System.out.println("=====================================================================================");
+		
+//		System.out.println(CircuitController.pc.driverListForGrandPix); /////// ///// ///// ///// ///// /// 디버깅
+		
+		for(Constructor cs : CircuitController.pc.constructorList) {
+			for(Driver d : cs.getDriverList()) {
+				cs.setConstructorPoint(cs.getConstructorPoint()+d.getCircuitPoint());  // 컨스트럭터 포인트 누적
+//				System.out.println(cs.getConstructorName()+"의 챔피언쉽 포인트: "+cs.getConstructorPoint()); /////// ///// ///// ///// ///// /// 디버깅
+			}
+		} // for 문 
+		
+		
+		for(Driver d : CircuitController.pc.driverListForGrandPix) {
+			d.setDriverPoint(d.getDriverPoint()+d.getCircuitPoint()); // driverPoint 누적
+
+			// 다음 그랑프리를 위해 그랑프리 값 초기화
+			d.setCircuitPoint(0);
+			d.setCircuitRank(0);
+			d.setCurrentSpeed(0);
+			
+		} // for 문 
+		gc.printChampionshipConstructor();
+//		System.out.println(CircuitController.pc.driverListForGrandPix); /////// ///// ///// ///// ///// /// 디버깅
+		
+		
+		
+		System.out.println(silverStone.getCircuitName()+" 그랑프리 플레이가 종료되었습니다.");
+		System.out.print("그랑프리 맵으로 돌아갑니다");
+		gc.printLoadingDot();
+		System.out.print("Loading");
+		gc.printLoadingDot();
+		Thread.sleep(1000);
+		
+		
+	}
+
+
+	
+
+}

@@ -1,0 +1,15 @@
+package f1_project;
+
+public class GameController {
+	
+	// 기타 게임 컨트롤러
+	
+	
+	public void printStartPage() {
+		
+	}
+	
+	
+	
+
+}

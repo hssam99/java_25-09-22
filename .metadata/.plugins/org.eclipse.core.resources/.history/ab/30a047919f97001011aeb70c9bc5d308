@@ -1,0 +1,13 @@
+package f1_project;
+
+public class Course {
+	int courseNum; // 코스번호
+	String courseName; // 코스이름
+	int courseType; // 코스타입 / 1이면 직선, 2면 곡선, 3이면 유턴
+	int bestSpeed; // 코스별 만점스피트 / 직선 - 370km, 곡선 - 100km, 유턴  - 50km
+	
+	final int softTire = 1; // 소프트타이어시 점수
+	final int hardTire = 3; // 하드타이어시 점수
+
+
+}

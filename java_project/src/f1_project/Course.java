@@ -1,0 +1,63 @@
+package f1_project;
+
+public class Course {
+	private int courseNum;       // 코스 번호
+	private String courseName;   // 코스 이름
+	private int courseType;      // 코스 타입 (1=직선, 2=곡선, 3유턴)
+	private int bestSpeed; // 코스별 만점 속도 (예: 직선 370km 등) 
+	
+	
+	private final int softTire = -1; // 소프트 타이어 가산점
+	private final int hardTire = -5; // 하드 타이어 가산점
+
+	
+	public Course() {}
+	
+	public Course(int courseNum, String courseName, int courseType, int bestSpeed) {
+		this.courseNum = courseNum;
+		this.courseName = courseName;
+		this.courseType = courseType;
+		this.bestSpeed = bestSpeed;
+	}
+
+	public int getCourseNum() {
+		return courseNum;
+	}
+
+	public void setCourseNum(int courseNum) {
+		this.courseNum = courseNum;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
+	public int getCourseType() {
+		return courseType;
+	}
+
+	public void setCourseType(int courseType) {
+		this.courseType = courseType;
+	}
+
+	public int getBestSpeed() {
+		return bestSpeed;
+	}
+
+	public void setBestSpeed(int bestSpeed) {
+		this.bestSpeed = bestSpeed;
+	}
+
+	public int getSoftTire() {
+		return softTire;
+	}
+
+	public int getHardTire() {
+		return hardTire;
+	}
+
+}

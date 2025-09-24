@@ -1,0 +1,48 @@
+package f1_project;
+
+import java.util.Scanner;
+
+public class PlayerController {
+	
+	DotArtController dac = new DotArtController();
+	
+	// 게임 시작 후 플레이어가 선택한 캐릭터 생성 관련 컨트롤러
+	
+	Scanner sc = new Scanner(System.in); 
+	
+	
+	
+	public void makeConstructorList() {
+		
+	}
+	
+	public void makeDriverList() {
+		
+	}
+	
+	public void makeCircuitList() {
+		
+	}
+	
+	
+	
+	
+	public String chooseCircuit(Scanner sc) {
+		dac.printSilverStoneCircuitImage();
+		dac.printMonzaCircuitImage();
+		dac.printShanghaiCircuitImage();
+		dac.printMonacoCircuitImage();
+		
+		System.out.println("1. 실버스톤 | 2. 몬자 | 3. 상하이 | 4. 모나코");
+		System.out.print("써킷을 선택하세요 > ");
+		
+		String circuit = sc.next();
+		
+		return circuit;
+		
+	}
+	
+	
+	
+
+}

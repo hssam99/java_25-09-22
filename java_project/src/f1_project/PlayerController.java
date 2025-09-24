@@ -1,0 +1,187 @@
+package f1_project;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+// 게임 시작 후 플레이어가 선택한 캐릭터 생성 관련 컨트롤러
+
+public class PlayerController {
+	
+	Scanner sc = new Scanner(System.in);
+	
+	DotArtController dac = new DotArtController();
+	
+	public List <Constructor> constructorList; // 컨스트럭터 리스트
+	public List <Driver> driverListForGrandPix = new ArrayList<>(); // 서킷에 참여하는 전체 드라이버 리스트
+	
+	
+	public PlayerController() {
+		constructorList = new ArrayList<>();
+		initConstructors();
+	}	// PlayerController
+	
+	
+	
+	// 기본 팀 및 드라이버 초기화 
+	private void initConstructors() {
+		Constructor redbull = new Constructor ("Redbull", 1);
+		redbull.addDriver(new Driver(1, "Redbull", "막스 베르스타펜", "27", "네덜란드", 66, 1)); // 1 - 비오는날 강함
+		redbull.addDriver(new Driver(2, "Redbull", "유키 츠노다", "25", "일본", 0, 0)); // 0 - 비오는날 약함
+
+		Constructor ferrari = new Constructor ("Ferrari", 2);
+		ferrari.addDriver(new Driver(3, "Ferrari", "샤를 르끌레르", "27", "모나코", 6, 0));
+		ferrari.addDriver(new Driver(4, "Ferrari", "루이스 해밀턴", "40", "영국", 105, 1));
+
+		constructorList.add(redbull);
+		constructorList.add(ferrari);
+		
+		// 전체 드라이버 리스트
+		for(Constructor constructor : constructorList) {
+			for(Driver driver : constructor.getDriverList()) {
+				driverListForGrandPix.add(driver);
+			}
+		}
+		
+	}	// initConstructors
+	
+	
+	
+	// 팀 목록 출력
+	public void printConstructors() {
+//		System.out.println("=== 팀 목록 ===");
+		for (int i = 0; i < constructorList.size(); i++) {
+			System.out.println("["+(i+1) + "] " + constructorList.get(i).getConstructorName());
+			
+		}
+	}	// printConstructors
+	
+	
+	// 사용자로부터 팀 선택받기
+	public Constructor chooseConstructor() {
+		Constructor selected = null;
+		while (selected == null) {
+			printConstructors(); // 컨스트럭터 리스트 출력
+			System.out.print("팀을 선택하세요 > ");
+			int choice = sc.nextInt();
+			sc.nextLine(); // 개행 문자 소비
+			
+			if (choice >= 1 && choice <= constructorList.size()) {
+				selected = constructorList.get(choice - 1); // 팀 선택
+//				System.out.println("선택한 팀: " + selected.getConstructorName());
+			} else {
+				System.err.println("잘못된 선택입니다. 다시 입력하세요.");
+			}
+		}
+		
+		return selected;
+	}	// chooseConstructor
+	
+	
+	
+	// 선택한 팀의 드라이버 목록 출력
+	public void printDrivers (Constructor constructor) {
+		List<Driver> drivers = constructor.getDriverList();
+		
+		
+		switch (constructor.getConstructorCode()) {
+		case 1: dac.printRedbullPlayers(); break;
+		case 2: dac.printFerrariPlayers(); break;
+		default:
+			break;
+		}
+		
+		
+//		System.out.println("=== " + constructor.getConstructorName() + "드라이버 목록 ===");
+		for (int i = 0; i < drivers.size(); i++) {
+			System.out.println("["+(i+1) + "] " + drivers.get(i).getDriverName());
+		}
+	}	// printDrivers
+	
+	
+	
+	// 사용자로부터 드라이버 선택받기
+	public Driver chooseDriver(Constructor constructor) {
+		Driver selectedDriver = null;
+		try {
+			while (selectedDriver == null) {
+				printDrivers(constructor);
+				System.out.print("드라이버를 선택하세요 > ");
+				int choice = sc.nextInt();
+				sc.nextLine();
+				
+				List <Driver> driverList = constructor.getDriverList(); // 해당 컨스트럭트의 드라이버 리스트
+				if (choice >= 1 && choice <= driverList.size()) {
+					// 복사 생성자를 이용해 새로운 객체 생성
+					selectedDriver = driverList.get(choice - 1);
+//					System.out.println("선택한 드라이버: " + selectedDriver.getDriverName());
+				} else {
+					System.err.println("잘못된 선택입니다. 다시 입력하세요.");
+				}
+			}
+		} catch (Exception e) {
+			System.err.println("err: 숫자를 입력해주세요!");
+			sc.nextLine();
+		}
+		
+		return selectedDriver;
+	}	// chooseDriver
+	
+
+	
+	   // 전체 팀 리스트 반환
+    public List<Constructor> getConstructorList() {
+        return constructorList;
+    }	// getConstructorList
+
+
+
+	public Scanner getSc() {
+		return sc;
+	}
+
+
+
+	public void setSc(Scanner sc) {
+		this.sc = sc;
+	}
+
+
+
+	public DotArtController getDac() {
+		return dac;
+	}
+
+
+
+	public void setDac(DotArtController dac) {
+		this.dac = dac;
+	}
+
+
+
+	public List<Driver> getDriverListForGrandPix() {
+		return driverListForGrandPix;
+	}
+
+
+
+	public void setDriverListForGrandPix(List<Driver> driverListForGrandPix) {
+		this.driverListForGrandPix = driverListForGrandPix;
+	}
+
+
+
+	public void setConstructorList(List<Constructor> constructorList) {
+		this.constructorList = constructorList;
+	}
+
+
+
+
+
+	
+	
+	
+
+}

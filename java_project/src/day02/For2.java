@@ -1,4 +1,4 @@
-package day92;
+package day02;
 
 public class For2 {
 

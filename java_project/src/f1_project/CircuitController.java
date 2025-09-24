@@ -1,0 +1,398 @@
+package f1_project;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class CircuitController {
+
+	Scanner sc = new Scanner(System.in);
+	
+	static PlayerController pc = new PlayerController();
+	DotArtController dac = new DotArtController();
+	GameController gc = new GameController();
+	Random random = new Random();
+
+	
+	private List<Circuit> circuitList = new ArrayList<>(); // 서킷 리스트
+	private boolean isRaining;	// 현재 서킷 날씨 상태 (true = 비, false = 맑음)
+
+	
+	// 날씨 설정 메소드
+ 	public void setWeather(int circuitIndex) {
+// 		System.out.println(circuitIndex);////////////디버깅
+ 	    Circuit selectedCircuit = circuitList.get(circuitIndex); 	// 서킷 선택
+ 	    double rainProb = selectedCircuit.getRainProbability(); 	// 선택한 서킷의 비올 확률 데이터 가져오기
+ 	    
+ 	    // random.nextDouble() → 0.0~1.0 사이 난수 생성.
+ 	    // 만약 난수가 0.25 → 0.25 < 0.3 → true → 비가 옴.
+ 	    // 난수가 0.5 → 0.5 < 0.3 → false → 맑음.
+ 	    isRaining = random.nextDouble() < rainProb;
+ 	    if(isRaining) {
+ 	    	selectedCircuit.setCurrentWeather(1); // 1-비 / 0-맑음
+ 	    }else {
+ 	    	selectedCircuit.setCurrentWeather(0);
+ 	    }
+ 	   // System.out.println(isRaining ? "현재 날씨: 비가 오는 상태입니다." : "현재 날씨: 맑은 상태입니다.");
+ 	}
+    
+    
+ 	
+ 	
+ 	
+ 	
+	// 서킷 리스트 생성
+	public CircuitController() {
+		initCircuit();
+	}
+	
+	
+	// 서킷 초기화
+	// 서킷 코드, 서킷 이름, 서킷 나라(그랑프리), 서킷 길이(km), 비가 올 확률(%)
+	private void initCircuit() {
+		circuitList.add(new Circuit(1, "실버스톤", "영국", 5891.0, 0.6));
+        circuitList.add(new Circuit(2, "몬자", "이탈리아", 5793.0, 0.2));
+        circuitList.add(new Circuit(3, "모나코", "모나코", 3337.0, 0.3));
+        circuitList.add(new Circuit(4, "스즈카", "일본", 5807.0, 0.4));
+	}
+	
+	
+	// 사용자가 플레이할 서킷 선택
+	public int chooseCircuit(Scanner sc) {
+		dac.printcircuitMap();
+		
+		System.out.println("[1] 실버스톤 | [2] 몬자 | [3] 모나코 | [4] 스즈카");
+		System.out.println("[0] 게임 종료");
+		System.out.print("써킷을 선택하세요 > ");
+		
+		int circuitNum = sc.nextInt();
+		return circuitNum;
+	}
+	
+	// 사용자 타이어 선택
+	public int setUserTire(Driver userDriver) {
+		// 타이어 선택 안내
+	    System.out.println("[1] SOFT (소프트타이어)");
+	    System.out.println("[2] HARD (하드타이어)");
+	    System.out.println("*맑은 날: 소프트 타이어 +2점");
+	    System.out.println("*비오는 날: 하드 타이어 +2점");
+
+	    int userTire = 0;
+	    while(true) {
+	        try {
+	            System.out.print("> ");
+	            userTire = sc.nextInt();
+	            sc.nextLine();
+	            if(userTire == 1 || userTire == 2) break;
+	            System.err.println("잘못된 입력입니다. 1 또는 2 중 하나를 선택하세요.");
+	        } catch(Exception e) {
+	            System.err.println("잘못된 입력입니다. 1 또는 2 중 하나를 선택하세요.");
+	            sc.nextLine();
+	        }
+	    }
+	    return userTire;
+	}
+
+	
+	
+
+    // 출발 신호등 작동 방식
+	
+	public int start() throws InterruptedException, IOException {
+		System.out.println("5개의 신호등이 모두 꺼지면 엔터키를 입력하여 출발하세요!");
+        Thread.sleep(4000);
+        dac.printTrafficLightOne();
+        Thread.sleep(1000);
+        dac.printTrafficLightTwo();
+        Thread.sleep(1000);
+        dac.printTrafficLightThree();
+        Thread.sleep(1000);
+        dac.printTrafficLightFour();
+        Thread.sleep(1000);
+        dac.printTrafficLightFive();
+
+        int delay = 200 + random.nextInt(3000); // 200~3000ms
+        Thread.sleep(delay);
+        dac.printTrafficLightZero();
+
+        long startTime = System.currentTimeMillis();
+
+        if (System.in.available() > 0) {  
+            sc.nextLine();
+            System.out.println("프리 스타트! 너무 빨리 출발했습니다.");
+            System.out.println("부정 출발로 패널티가 주어집니다!(-5점)");
+            return -1;
+        }
+        
+        sc.nextLine(); // 사용자가 Enter 입력 대기
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("(반응 시간: " + (endTime - startTime) + " ms)");
+        
+        return (int)(endTime-startTime);
+	}
+	
+    
+    
+    public void setStartPoint() {
+    	// 점수표
+        int i = 0;
+    	int prevSpeed= -1000000000; // 에러값
+    	int prevCircuitPoint = 0;
+    	int prevRank = 1;
+        int[] scores = {10, 6, 2, 0};
+      
+//		System.out.println(pc.getDriverListForGrandPix()); /////////////////////디버깅
+    	// 오름차순 정렬 (적은 숫자일 수록 빨리 반응한 것이므로)
+        List<Driver> sortedList = pc.getDriverListForGrandPix()
+        	    .stream()
+        	    .sorted((a, b) -> Integer.compare(a.getCurrentSpeed(), b.getCurrentSpeed())) // 내림차순
+        	    .collect(Collectors.toList());
+    	
+   
+    	for(Driver d : sortedList) {
+    		d.setCircuitPoint(d.getCircuitPoint()+scores[i]);
+    		
+    		if (isRaining) { // 비올때
+                // 비올 때 하드 타이어 +2
+                if (d.getTire() == 2) d.setCircuitPoint(d.getCircuitPoint() + 2); // 하드타이어면 2
+            }else { // 안올때
+            	if (d.getTire() == 1) d.setCircuitPoint(d.getCircuitPoint() + 2); // 소프트타이어면 1
+            }
+    		
+    		i++;
+    		
+    	}
+    	
+    	// 내림차순 정렬 (현재 점수가 높은순으로)
+        List<Driver> sortedList2 =  
+        		pc.getDriverListForGrandPix()
+        	    .stream()
+        	    .sorted((a, b) -> Integer.compare(b.getCircuitPoint(), a.getCircuitPoint()))
+        	    .collect(Collectors.toList());
+//        	    .forEach(n-> System.out.println(n));
+       
+        // 기존 점수와 합산하여 현재 순위 배정
+		System.out.println("--------------------- (score board) ---------------------");
+		System.out.println("RANK \t DRIVER \t\t TEAM \t\t POINT");
+    	for(Driver d : sortedList2) {
+    		if(d.getCircuitPoint()==prevCircuitPoint) { // 앞 인덱스의 드라이버와 동일한 서킷 점수일 경우 (동점일경우)
+    			d.setCircuitRank(prevRank-1);
+    			prevRank++;
+    		}else {
+    			d.setCircuitRank(prevRank);
+    			prevCircuitPoint = d.getCircuitPoint();
+    			prevRank++;
+    		}
+    		
+//    		System.out.println(d.getDriverName()+"의 현재포인트는 "+d.getCircuitPoint()+"점 입니다. \t"+"[현재순위] "+d.getCircuitRank()+"위");
+    		System.out.println(d.getCircuitRank()+" \t "+d.getDriverName()+" \t\t "+d.getConstructor()+" \t "+d.getCircuitPoint());
+    	}
+		System.out.println("----------------------------------------------------------");
+    	
+    	
+    }
+    
+    
+    
+    
+	public void generateAiTire(Driver userDriver) {
+		for (Driver driver : pc.getDriverListForGrandPix()) {
+            if (driver.getDriverNum()!=userDriver.getDriverNum()) { // 유저 드라이버가 아니라면
+            	int tireType = 1+random.nextInt(2); // 1-소프트 타이어 2-하드타이어
+            	driver.setTire(tireType);
+            	String tireTypeName = driver.getTire()==1?"SOFT TIRE":"HARD TIRE";
+//                System.out.println("[디버깅:]//////////////////"+driver.getDriverName()+"의 현재 타이어: \t"+driver.getTire()); // 디버깅
+            	System.out.println(driver.getDriverName()+"의 현재 타이어: \t"+tireTypeName); // 출력
+            }
+        }
+		
+		String userTireTypeName = pc.getDriverListForGrandPix().get(userDriver.getDriverNum()-1).getTire()==1?"SOFT TIRE":"HARD TIRE";
+		
+		System.out.println(pc.getDriverListForGrandPix().get(userDriver.getDriverNum()-1).getDriverName()+"의 현재 타이어: \t"+userTireTypeName); // 출력
+		
+	}
+    
+    
+    
+    public void generateAICurrentSpeeds(Driver userDriver, int start, int end) {
+        for (Driver driver : pc.getDriverListForGrandPix()) {
+            if (driver.getDriverNum()!=userDriver.getDriverNum()) { // 유저 드라이버가 아니라면
+                int startSpeed = start + random.nextInt(end-start); // start ~ end 사이
+                driver.setCurrentSpeed(startSpeed);
+                System.out.println(driver.getDriverName()+"의 현재속도: \t"+driver.getCurrentSpeed()+"km/h");
+            }
+        }
+        System.out.println(userDriver.getDriverName()+"의 현재속도: \t"+userDriver.getCurrentSpeed()+"km/h");
+         
+        
+//        pc.getDriverListForGrandPix().stream().forEach(n-> System.out.println(n)); // 디버깅
+        
+    }
+    
+    
+    // 드라이버 포인트 계산
+    public void setCurrentPoint(int bestSpeed) {
+    	// 점수표
+    	int i = 0;
+    	int prevSpeed= -1000000000; // 에러값
+    	int prevCircuitPoint = 0;
+    	int prevRank = 1;
+        int[] scores = {10, 6, 2, 0};
+        
+        
+        
+        
+        // [추가] 현재 경기 날씨 가져오기
+        // f1_project.CircuitController 필드 isRaining 사용 기준
+        boolean isRaining = this.isRaining;
+        
+        for(Driver d : pc.driverListForGrandPix) {
+        	int tmp = d.getCurrentSpeed() >= bestSpeed?d.getCurrentSpeed()-bestSpeed:bestSpeed-d.getCurrentSpeed();
+        	d.setCurrentSpeed(tmp); // 현재속도가 > 편차값으로 변함
+        }
+        
+    	// 오름차순 정렬 (적은 숫자일 수록 편차가 적다는 뜻이므로)
+        List<Driver> sortedList = pc.getDriverListForGrandPix()
+        	    .stream()
+        	    .sorted((a, b) -> Integer.compare(a.getCurrentSpeed(), b.getCurrentSpeed())) // 내림차순
+        	    .collect(Collectors.toList());
+        
+    	
+        // 현재 코스 점수를 더하여 서킷 포인트 누적 (동점 처리)
+    	for(Driver d : sortedList) {
+    		if(d.getCurrentSpeed()==prevSpeed) {
+    			d.setCircuitPoint(d.getCircuitPoint()+scores[i-1]); // 앞 인덱스의 드라이버와 동일한 스피드일경우 (동점일경우)
+    			
+    			// 날씨와 타이어 종류 비교하여 가중치 부가
+    			if (isRaining) { // 비올때
+                    // 비올 때 하드 타이어 +2
+                    if (d.getTire() == 2) d.setCircuitPoint(d.getCircuitPoint() + 2); // 하드타이어면 2
+                }else { // 안올때
+                	if (d.getTire() == 1) d.setCircuitPoint(d.getCircuitPoint() + 2); // 소프트타이어면 1
+                }
+    			
+    			i++;
+    		}else {
+    			d.setCircuitPoint(d.getCircuitPoint()+scores[i]);
+    			prevSpeed = d.getCurrentSpeed();
+//    			System.out.println(prevSpeed); //// 디버깅
+    			// 날씨와 타이어 종류 비교하여 가중치 부가
+    			if (isRaining) { // 비올때
+                    // 비올 때 하드 타이어 +2
+                    if (d.getTire() == 2) d.setCircuitPoint(d.getCircuitPoint() + 2); // 하드타이어면 2
+                }else { // 안올때
+                	if (d.getTire() == 1) d.setCircuitPoint(d.getCircuitPoint() + 2); // 소프트타이어면 1
+                }
+    			i++;
+    		}
+    		
+    	}
+    	
+    
+    	
+    	
+    	
+    	
+    	System.out.println("--------------------- (score board) ---------------------");
+    	System.out.println("RANK \t DRIVER \t\t TEAM \t\t POINT");
+    	// 내림차순 정렬 (현재 점수가 높은순으로)
+        List<Driver> sortedList2 =  
+        		pc.getDriverListForGrandPix()
+        	    .stream()
+        	    .sorted((a, b) -> Integer.compare(b.getCircuitPoint(), a.getCircuitPoint()))
+        	    .collect(Collectors.toList());
+//        	    .forEach(n-> System.out.println(n));
+       
+        // 기존 점수와 합산하여 현재 순위 배정
+    	for(Driver d : sortedList2) {
+    		if(d.getCircuitPoint()==prevCircuitPoint) { // 앞 인덱스의 드라이버와 동일한 서킷 점수일 경우 (동점일경우)
+    			d.setCircuitRank(prevRank-1);
+    			prevRank++;
+    		}else {
+    			d.setCircuitRank(prevRank);
+    			prevCircuitPoint = d.getCircuitPoint();
+    			prevRank++;
+    		}
+    		
+//    		System.out.println(d.getDriverName()+"의 현재포인트는 "+d.getCircuitPoint()+"점 입니다. 현재순위:"+d.getCircuitRank()+"위");
+    		System.out.println(d.getCircuitRank()+" \t "+d.getDriverName()+" \t\t "+d.getConstructor()+" \t "+d.getCircuitPoint());
+    	}
+    	System.out.println("----------------------------------------------------------");
+        
+        
+    }
+    
+    
+    // 그랑프리 순위 출력
+    public void printGrandpixStanding() {
+    	
+    	int prevCircuitPoint = 0;
+    	int prevRank = 1;
+    	
+    	List<Driver> sortedList =  
+    			pc.getDriverListForGrandPix()
+        	    .stream()
+        	    .sorted((a, b) -> Integer.compare(b.getCircuitPoint(), a.getCircuitPoint()))
+        	    .collect(Collectors.toList());
+    	
+    	
+    	
+    	for(Driver d : sortedList) {
+    		if(d.getCircuitPoint()==prevCircuitPoint) { // 앞 인덱스의 드라이버와 동일한 서킷 점수일 경우 (동점일경우)
+    			d.setCircuitRank(prevRank-1);
+    			prevRank++;
+    		}else {
+    			d.setCircuitRank(prevRank);
+    			prevCircuitPoint = d.getCircuitPoint();
+    			prevRank++;
+    		}
+    		
+    		System.out.println(d.getCircuitRank()+" \t "+d.getDriverName()+" \t\t "+d.getConstructor()+" \t\t "+d.getCircuitPoint());
+    		System.out.println();
+    	}
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+	// getter setter
+	
+    public List<Circuit> getCircuitList() {
+		return circuitList;
+	}
+
+	public void setCircuitList(List<Circuit> circuitList) {
+		this.circuitList = circuitList;
+	}
+
+
+
+
+
+	// 날씨를 반전시키는 메소드
+	public boolean isRaining() {
+		// TODO Auto-generated method stub
+		return this.isRaining;
+	}
+
+
+	public void setRaining(boolean b) {
+		// TODO Auto-generated method stub
+		this.isRaining=b;
+	}
+
+
+
+
+
+	
+
+}

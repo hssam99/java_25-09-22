@@ -1,0 +1,118 @@
+package f1_project;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Circuit {
+
+	int circuitNum; 			// 써킷넘버
+	String circuitName;			// 써킷 이름 ex) 실버스톤, 모나코, 몬자, 스즈카
+	String circuitLocation; 	// 개최 도시, 국가
+	double circuitLength; 		// 랩 길이
+	double rainProbability; 	// 써킷 비가 올 확률
+	int currentWeather; 		// 현재 날씨 상태 (1-비 / 0-맑음)
+	List<Course> courseList = new ArrayList<>(); 	// 코스정보가 담긴 코스 리스트, 코스는 3개
+	
+	
+	public Circuit() {}
+	
+	public Circuit(int circuitNum, String circuitName, String circuitLocation,
+			double circuitLength,
+			double rainProbability) {
+		super();
+		this.circuitNum = circuitNum;
+		this.circuitName = circuitName;
+		this.circuitLocation = circuitLocation;
+		this.circuitLength = circuitLength;
+		this.rainProbability = rainProbability;
+	}
+	
+	public Circuit(int num, String name, String location, double length) {
+		this.circuitNum = num;
+		this.circuitName = name;
+		this.circuitLocation = location;
+		this.circuitLength = length;
+	}
+	
+	// 서킷 정보 출력
+	public void printCircuitInfo() {
+		System.out.println(getCircuitLocation()+"에서 개최되는 "+getCircuitName()+" 서킷은 "+getCircuitLength()+"km의 주행길이로 이루어져있습니다.");
+		switch (getCurrentWeather()) {
+		case 1: System.out.println("현재 "+getCircuitLocation()+"의 날씨는 비가 오고 있습니다."); break;
+		case 0: System.out.println("현재 "+getCircuitLocation()+"의 날씨는 맑습니다."); break;
+		default:
+			break;
+		}
+		
+	}
+
+	public int getCircuitNum() {
+		return circuitNum;
+	}
+
+	public void setCircuitNum(int circuitNum) {
+		this.circuitNum = circuitNum;
+	}
+
+	public String getCircuitName() {
+		return circuitName;
+	}
+
+	public void setCircuitName(String circuitName) {
+		this.circuitName = circuitName;
+	}
+
+	public String getCircuitLocation() {
+		return circuitLocation;
+	}
+
+	public void setCircuitLocation(String circuitLocation) {
+		this.circuitLocation = circuitLocation;
+	}
+
+	public double getCircuitLength() {
+		return circuitLength;
+	}
+
+	public void setCircuitLength(double circuitLength) {
+		this.circuitLength = circuitLength;
+	}
+
+	public double getRainProbability() {
+		return rainProbability;
+	}
+
+	public void setRainProbability(double rainProbability) {
+		this.rainProbability = rainProbability;
+	}
+
+	public int getCurrentWeather() {
+		return currentWeather;
+	}
+
+	public void setCurrentWeather(int currentWeather) {
+		this.currentWeather = currentWeather;
+	}
+
+	public List<Course> getCourseList() {
+		return courseList;
+	}
+
+	public void setCourseList(List<Course> courseList) {
+		this.courseList = courseList;
+	}
+
+	@Override
+	public String toString() {
+		return "Circuit [circuitNum=" + circuitNum + ", circuitName=" + circuitName + ", circuitLocation="
+				+ circuitLocation + ", circuitLength=" + circuitLength + ", rainProbability=" + rainProbability
+				+ ", currentWeather=" + currentWeather + ", courseList=" + courseList + "]";
+	}
+	
+	
+	
+	
+	
+	
+
+}

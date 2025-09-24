@@ -1,0 +1,150 @@
+package f1_project;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Driver {
+	private int driverNum;
+	private String constructor;           // 소속 팀명
+	private String driverName;            // 드라이버 이름
+	private String age;                   // 나이
+	private String nationality;           // 국적
+	private int numberOfChampionships;    // 우승 횟수 
+	
+	
+	private int tire;         // 현재 타이어 종류 (SOFT=1, HARD=3)
+	private int coursePoint;  // 코스별 점수
+	private int weatherType;  // 날씨 강점 (1=맑은 날 강함, 0 비오는 날 강함)
+	private int circuitPoint; // 누적 써킷 점수
+	private int circuitRank;  // 써킷별 순위
+	private int driverPoint;  // 개인 점수 누적
+	private int startSpeed;   // 출발 속도 (게임 시작 시 AI 출발값 랜덤으로 할당)
+	
+
+	List<Integer> circuitHistory = new ArrayList<>();  // 해당 드라이버가 플레이한 써킷 기록
+	
+	
+	
+	public Driver(){}
+	
+	public Driver (Driver other) {
+		this.driverNum = driverNum;
+		this.constructor = constructor;
+		this.driverName = driverName;
+		this.age = age;
+		this.nationality = nationality;
+		this.numberOfChampionships = numberOfChampionships;
+		// this.tire = tire;
+		this.weatherType = weatherType;
+		this.coursePoint = 0;
+		this.circuitPoint = 0;
+		this.circuitRank = 0;
+		this.driverPoint = 0;
+		this.startSpeed = 0;
+	}
+	
+	// 드라이버 객체
+	public Driver(int num, String constructor, String name, String age,
+			String nation, int champion, int weather){
+		
+		this.driverNum = num;
+		this.constructor = constructor;
+		this.driverName = name;
+		this.age=age;
+		this.nationality = nation;
+		this.numberOfChampionships=champion;
+		this.weatherType=weather;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String getConstructor() {
+		return constructor;
+	}
+	public void setConstructor(String constructor) {
+		this.constructor = constructor;
+	}
+	public String getDriverName() {
+		return driverName;
+	}
+	public void setDriverName(String driverName) {
+		this.driverName = driverName;
+	}
+	public String getAge() {
+		return age;
+	}
+	public void setAge(String age) {
+		this.age = age;
+	}
+	public String getNationality() {
+		return nationality;
+	}
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+	public int getDriverNum() {
+		return driverNum;
+	}
+	public void setDriverNum(int driverNum) {
+		this.driverNum = driverNum;
+	}
+	public int getNumberOfChampionships() {
+		return numberOfChampionships;
+	}
+	public void setNumberOfChampionships(int numberOfChampionships) {
+		this.numberOfChampionships = numberOfChampionships;
+	}
+	public int getTire() {
+		return tire;
+	}
+	public void setTire(int tire) {
+		this.tire = tire;
+	}
+	public int getCoursePoint() {
+		return coursePoint;
+	}
+	public void setCoursePoint(int coursePoint) {
+		this.coursePoint = coursePoint;
+	}
+	public int getWeatherType() {
+		return weatherType;
+	}
+	public void setWeatherType(int weatherType) {
+		this.weatherType = weatherType;
+	}
+	public int getCircuitPoint() {
+		return circuitPoint;
+	}
+	public void setCircuitPoint(int circuitPoint) {
+		this.circuitPoint = circuitPoint;
+	}
+	public int getCircuitRank() {
+		return circuitRank;
+	}
+	public void setCircuitRank(int circuitRank) {
+		this.circuitRank = circuitRank;
+	}
+	public int getDriverPoint() {
+		return driverPoint;
+	}
+	public void setDriverPoint(int driverPoint) {
+		this.driverPoint = driverPoint;
+	}
+	public List<Integer> getCircuitHistory() {
+		return circuitHistory;
+	}
+	public void setCircuitHistory(List<Integer> circuitHistory) {
+		this.circuitHistory = circuitHistory;
+	}
+	
+	
+
+}

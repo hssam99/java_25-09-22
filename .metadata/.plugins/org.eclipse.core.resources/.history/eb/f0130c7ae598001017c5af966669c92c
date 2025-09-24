@@ -1,0 +1,229 @@
+package f1_project;
+
+import java.util.Scanner;
+
+public class F1Main {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		Scanner sc = new Scanner(System.in);
+		
+		PlayerController pc = new PlayerController();
+		DotArtController dac = new DotArtController();
+		CircuitController cc = new CircuitController();
+		GameController gc = new GameController();
+		
+		
+		dac.printLogo();
+		System.out.println("\t\t\t\t\t\tLoading");
+		System.out.print("\t\t\t\t\t");
+		gc.printLoadingDotNoEnter();
+		gc.printLoadingDotNoEnter();
+		gc.printLoadingDotNoEnter();
+		gc.printLoadingDotNoEnter();
+		gc.printLoadingDotNoEnter();
+		gc.printLoadingDotNoEnter();
+		gc.printLoadingDotNoEnter();
+		gc.printLoadingDotNoEnter();
+		Thread.sleep(500);
+		
+	
+		
+		
+		// 사용자 객체 생성
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		dac.printSelectTheTeam();
+		dac.printTeamLogoList();
+		
+		Constructor userConstructor=pc.chooseConstructor();; // 유저가 선택한 팀 리턴
+		System.out.println();
+		System.out.print("Loading");
+		gc.printLoadingDot();
+		System.out.println();
+		System.out.println();
+		Thread.sleep(500);
+		
+		
+		dac.printSelectThePlayer();
+		System.out.println();
+		System.out.println();
+		Driver userDriver = pc.chooseDriver(userConstructor); // 유저가 선택한 드라이버 리턴
+		System.out.println();
+		System.out.println();
+		Thread.sleep(500);
+		System.out.print(userDriver.getDriverName()+" 선택 중");
+		gc.printLoadingDot();
+		System.out.println();
+		System.out.println();
+		System.out.print("Loading");
+		gc.printLoadingDot();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		Thread.sleep(1000);
+		
+		
+		
+		userDriver.printDriverInfo();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		System.out.println("2025 F1 시즌을 시작하시겠습니까?");
+		System.out.println("[1] YES [2] NO");
+		
+		int input = gc.YesOrNo(sc);
+		if(input==2) {
+			System.out.print("게임을 종료합니다.");
+			gc.printLoadingDot();
+			return;
+		}
+		
+		System.out.print("그랑프리 맵으로 이동중");
+		gc.printLoadingDot();
+		System.out.println();
+		System.out.println();
+		System.out.print("Loading");
+		gc.printLoadingDot();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		Thread.sleep(2000);
+		
+		
+		gc.printStartSeasonMent(userDriver);
+		
+		System.out.println("PRESS [ENTER] TO START THE SEASON");
+		sc.nextLine();
+		sc.nextLine();
+		System.out.print("Loading");
+		gc.printLoadingDot();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		Thread.sleep(1000);
+	
+		// 반복
+		while(userDriver.getCircuitHistory().size()<4) { // 4개의 서킷을 모두 플레이하면 게임 종료
+			try {
+				int userChooseCircuit =cc.chooseCircuit(sc)-1;
+				
+				// 유저가 원할 때 강제종료
+				if(userChooseCircuit==-1) { 
+					System.out.println("게임을 종료합니다.");
+					return;
+				}
+				boolean continuePlay = true;
+				
+				
+				// 유저가 플레이한 적이 있는 서킷이면 플레이 불가
+				for(Integer i : userDriver.getCircuitHistory()) {
+					if(userChooseCircuit==i) {
+						continuePlay = false;
+					}
+					
+				}
+				
+				if(continuePlay==false) {
+					System.err.println("이미 플레이한 서킷입니다. 다른 서킷을 선택해주세요.");
+					continue;
+				}
+				
+				// 플레이 한적이 없는 서킷이면 플레이
+				
+				switch (userChooseCircuit) {
+				case 0: // 실버스톤 플레이
+					SilverStoneController ssc = new SilverStoneController(userDriver, userChooseCircuit); // 실버스톤
+					ssc.playSilverstone(userDriver);
+					userDriver.getCircuitHistory().add(0);
+					System.out.println(userDriver.getDriverName()+"의 플레이 기록: "+userDriver.getCircuitHistory()); // 디버깅
+					break;
+				case 1: // 몬자 플레이
+					MonzaController mz = new MonzaController(userDriver, userChooseCircuit);
+					mz.playMonza(userDriver);
+					userDriver.getCircuitHistory().add(1);
+					System.out.println(userDriver.getDriverName()+"의 플레이 기록: "+userDriver.getCircuitHistory()); // 디버깅
+					break;
+				case 2: // 모나코 플레이
+					MonacoController mc = new MonacoController(userDriver, userChooseCircuit);
+					mc.playMonaco(userDriver);
+					userDriver.getCircuitHistory().add(2);
+					System.out.println(userDriver.getDriverName()+"의 플레이 기록: "+userDriver.getCircuitHistory()); // 디버깅
+					break;
+				case 3: // 스즈카 플레이
+					SuzukaController szk = new SuzukaController(userDriver, userChooseCircuit);
+					szk.playSuzuka(userDriver);
+					userDriver.getCircuitHistory().add(3);
+					System.out.println(userDriver.getDriverName()+"의 플레이 기록: "+userDriver.getCircuitHistory()); // 디버깅
+					break;
+					
+				default:
+					System.err.println("존재하지 않는 서킷입니다...");
+					break;
+				}
+				
+			} catch (Exception e) {
+				System.err.println("err: 잘못된 값을 입력했습니다!!");
+				e.printStackTrace();
+				sc.nextLine();
+			} // try~catch
+			
+			
+		} // while
+		
+		Thread.sleep(2000);
+		System.out.println("2025 시즌이 종료되었습니다.");
+		gc.printLoadingDot();
+		System.out.println("Loading");
+		gc.printLoadingDot();
+		System.out.println("최종 결과를 불러오고 있습니다.");
+		System.out.println("Loading");
+		gc.printLoadingDot();
+		gc.printLoadingDot();
+		gc.printLoadingDot();
+		Thread.sleep(2000);
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		
+		
+		// 파일을 생성
+		
+		
+		gc.printChampionshipDriver();
+		gc.printChampionshipConstructor();
+		
+		
+		// 파일 입출력 > GameController에 추가
+		System.out.println("시즌 결과를 파일로 출력하겠습니까? ( YES / NO )");
+		gc.printSeasonReport();
+	
+		
+		System.out.println("게임을 종료합니다.");
+		
+		
+	} // main
+
+} // class

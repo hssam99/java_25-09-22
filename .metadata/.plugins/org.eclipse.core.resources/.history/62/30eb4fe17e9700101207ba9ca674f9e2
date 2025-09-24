@@ -1,0 +1,16 @@
+package f1_project;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Circuit {
+	List<Course> courseList = new ArrayList<>(); // 코스정보가 담긴 코스 리스트, 코스는 3개
+	String circuitName; // 써킷 이름 ex) 실버스톤, 모나코, 몬자, 상하이
+	int circuitNum; // 써킷넘버
+	String circuitLocation; // 개최 도시, 국가
+
+	// 임시 정보
+	Double circuitLength; // 랩 길이
+
+
+}

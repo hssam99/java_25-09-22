@@ -1,0 +1,18 @@
+package day18;
+
+public interface Temp {
+	public static void main(String[] args) throws InterruptedException {
+        String text = "깜빡깜빡~";
+
+        for (int i = 0; i < 10; i++) {
+            System.out.print("\r" + text);           // 텍스트 출력
+            Thread.sleep(500);                       // 0.5초 대기
+
+            System.out.print("\r" + " ".repeat(text.length())); // 같은 줄 지우기
+            Thread.sleep(500);                       // 0.5초 대기
+        }
+
+        // 반복 끝난 후 한 줄에 최종 출력
+        System.out.println("\r" + text);
+    }
+}

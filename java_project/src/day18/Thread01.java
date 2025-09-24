@@ -2,7 +2,7 @@ package day18;
 
 public class Thread01 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		// Thread(쓰레드) : 실제 작업을 수행하는 단위
 		/*
@@ -30,19 +30,40 @@ public class Thread01 {
 		 */
 		
 		
-		// 현재 실행중인 스레드 이름
-		System.out.println(Thread.currentThread().getName()); //main
+		String text = "깜빡깜빡~";
+
+        for (int i = 0; i < 10; i++) {  // 깜빡임 10회
+            // 보이게
+            System.out.print("\r" + text);
+            System.out.flush();
+            Thread.sleep(500);
+
+            // 사라지게
+            System.out.print("\r");                // 커서를 맨 앞으로 이동
+            System.out.print(" ".repeat(text.length())); // 덮어쓰기
+            System.out.flush();
+            Thread.sleep(500);
+        }
+
+        // 반복 끝난 후, 최종적으로 사라진 상태
+        System.out.print("\r");                
+        System.out.print(" ".repeat(text.length()));
+        System.out.flush();
 		
-		MyThread th = new MyThread(); // thread - 0
-		// start() 호출 => 스레드 실행
-		// run() 을 호출하면 그냥 메소드를 호출하는 것과 같다, start를 하여 호출해야함.
-		
-		th.start();
-		
-		MyThread th2 = new MyThread(); // thread - 1
-		th2.start();
-		
-		System.out.println("thread end~!!");
+//		
+//		// 현재 실행중인 스레드 이름
+//		System.out.println(Thread.currentThread().getName()); //main
+//		
+//		MyThread th = new MyThread(); // thread - 0
+//		// start() 호출 => 스레드 실행
+//		// run() 을 호출하면 그냥 메소드를 호출하는 것과 같다, start를 하여 호출해야함.
+//		
+//		th.start();
+//		
+//		MyThread th2 = new MyThread(); // thread - 1
+//		th2.start();
+//		
+//		System.out.println("thread end~!!");
 		
 		
 	}
@@ -50,18 +71,16 @@ public class Thread01 {
 }
 
 
-// Thread 클래스를 상속하여 만들기
-class MyThread extends Thread{
-
-	@Override
-	public void run() {
-		// 1~ 2000까지 반복하는 쓰레
-		for(int i = 0; i<2000; i++) {
-			System.out.println(i+". thread > "+getName());
-		}
-		
-	}
-	
-	
-	
-}
+//// Thread 클래스를 상속하여 만들기
+//class MyThread extends Thread{
+//
+//	@Override
+//	public void run() {
+//		// 1~ 2000까지 반복하는 쓰레
+//		for(int i = 0; i<2000; i++) {
+//			System.out.println(i+". thread > "+getName());
+//		}
+//		
+//	}
+//	
+//}

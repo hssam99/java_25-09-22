@@ -1,0 +1,267 @@
+package f1_project;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+// 기타 게임 컨트롤러
+public class GameController {
+	
+	DotArtController dac = new DotArtController();
+	Random random = new Random();
+	Scanner sc = new Scanner(System.in);
+	
+	
+	public int YesOrNo(Scanner sc) {
+		System.out.print("> ");
+		int userChoice = sc.nextInt();
+		while(true) {
+	    	try {
+	    		if(userChoice==1||userChoice==2) {
+		    		break;
+		    	}else {
+		    		System.err.println("잘못된 값을 입력했습니다. 다시 입력하세요.");
+		    	}
+			} catch (Exception e) {
+				System.err.println("잘못된 값을 입력했습니다. 다시 입력하세요.");
+				sc.nextLine();
+			}
+	    }
+		return userChoice;
+	}
+	
+    public void printRandomMessagesAfterCourse(int courseType) throws InterruptedException { // 1-직선 2-곡선 3-유턴
+        List<String> msgs = new ArrayList<>(); // 리스트 생성
+
+        switch (courseType) {
+	        case 0: // 인트로
+	            msgs.add("트랙 컨디션 양호, 바람 양호, 타이어 워밍업이 관건이에요.");
+	            msgs.add("시그널 소등! 레이스가 시작됐습니다!");
+	            msgs.add("팀 라디오로 '굿 럭' 메시지가 이어집니다. 선수의 목소리에도 자신감이 묻어나요!");
+	            break;
+        
+            case 1: // 직선
+            	
+                msgs.add("관중석에서 함성이 커집니다! "+CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+ " 믿을 수 없는 시원한 드라이빙!");
+                msgs.add("속도계를 보세요! "+CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 엄청난 가속입니다!");
+                msgs.add("바퀴가 포장도로를 움켜쥐며 비명을 지릅니다!");
+                msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+"의 엄청난 직선 스피드! 엔진이 한계까지 몰아붙여집니다!");
+                msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 선수가 DRS를 열고 최대 가속을 뽑아냅니다!");
+                msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(2)).getDriverName()+"! 루이스 해밀턴과 사이드 바이 사이드! 두 차량이 나란히 달립니다!");
+                msgs.add("한계까지 밀어붙이는 "+CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 드라이버의 용기에 박수가 터져나옵니다!");
+                break;
+
+            case 2:  // 곡선
+                msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 정확한 라인! 한 치의 오차도 허용되지 않습니다!");
+                msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 코너 진입! 순식간에 순위가 바뀔 수 있습니다!");
+                msgs.add("좌우로 흔들리며 "+CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 선수의 차체가 극한의 밸런스를 보여줍니다!");
+                msgs.add("이 구간을 완벽히 통과하면 "+CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 엄청난 랩타임 단축이 가능합니다!");
+                msgs.add("속도를 잃지 않고 연속 코너를 이어가는 "+CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName() +" 드라이버의 놀라운 컨트롤!");
+                msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+"! 작은 실수 하나가 치명적인 결과로 이어질 수 있습니다!");
+                msgs.add("관중석에서도 숨을 죽이고 지켜보고 있습니다!");
+                msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 선수 위험합니다. 리듬을 잃지 않는 집중력이 핵심입니다!");
+                msgs.add("[TEAM RADIO]: \"조심해, "+CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+"! 타이어 마모가 심하게 됐어.!\"");
+                break;
+
+            case 3: // 유턴
+            	msgs.add("팬들의 응원이 "+ CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName() +" 선수에게 힘을 실어주고 있습니다!");
+            	msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 이상적인 터닝 포인트를 정확히 찍었습니다!");
+                msgs.add("라인 유지가 승부의 갈림길입니다!"+CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 선수의 환상적인 플레이!");
+                msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 추월 시도! 누가 먼저 브레이킹 포인트를 선점할까요?");
+                msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+"!!! 다음 코너를 위한 최적의 포지션을 노립니다!");
+                break;
+                
+                
+            case 4: // 피날레
+            	msgs.add("체커드 플래그가 휘날립니다! 레이스 종료!");
+			    msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 선수가 마지막까지 풀스로틀로 피니시 라인을 통과합니다!");
+			    msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 간발의 차! 숨 막히는 피니시였습니다!");
+			    msgs.add("피니시 직전, 사이드 바이 사이드! 결국 "+CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 선수가 앞서 나갑니다!");
+			    msgs.add("오늘의 드라이버는"+CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 선수! 관중석이 환호로 들썩입니다!");
+			    msgs.add("전략과 피트스탑이 승부를 갈랐습니다. 팀워크의 승리네요!");
+			    msgs.add(CircuitController.pc.driverListForGrandPix.get(random.nextInt(4)).getDriverName()+" 선수가 시즌 포인트를 두둑이 챙깁니다!");
+			    msgs.add("전광판에 하이라이트가 재생됩니다—놓칠 수 없는 명장면의 연속!");
+			    msgs.add("샴페인 세리머니 준비! 트랙 전체가 축제의 분위기입니다!");
+			    msgs.add("불꽃놀이가 밤하늘을 수놓습니다. 잊지 못할 밤!");
+            	break;
+
+            default:
+                // 예비 공통 멘트
+            	msgs.add("관중들이 자리에서 일어나 손을 흔들고 있습니다!");
+                msgs.add("팀 라디오로 전략을 조율하고 있습니다!");
+                msgs.add("타이어 온도를 정교하게 관리하는 모습입니다!");
+        }
+        
+        Collections.shuffle(msgs); // 
+        int count = 2 + random.nextInt(2); // 2~3개
+        for (int i = 0; i < count && i < msgs.size(); i++) {
+            printStringOnebyOne(msgs.get(i));
+            printLoadingDot();
+            System.out.println();
+        }
+    }
+	
+	
+	
+	
+    
+    public void printLoadingDotNoEnter() throws InterruptedException {
+    	System.out.print(".");
+    	Thread.sleep(200);
+    	System.out.print(".");
+    	Thread.sleep(100);
+    	System.out.print(".");
+    	Thread.sleep(50);
+    	Thread.sleep(500);
+    }	// printLoadingDot
+    
+	public void printLoadingDot() throws InterruptedException {
+		System.out.print(".");
+		Thread.sleep(500);
+		System.out.print(".");
+		Thread.sleep(500);
+		System.out.print(".");
+		Thread.sleep(500);
+		Thread.sleep(1000);
+		System.out.println();
+	}	// printLoadingDot
+
+	
+	public void printStringOnebyOne(String text) {
+    	for (int i = 0; i < text.length(); i++) {
+			System.out.print(text.charAt(i)); // 한 글자 출력
+			System.out.flush();              // 출력 즉시 반영
+			try {
+				Thread.sleep(50); // 0.1초 대기
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}              
+		}
+    	System.out.println();
+    	
+    }
+	
+	
+	
+	
+	
+	public void printChampionshipDriver() {
+		dac.printGrandPrixStandingImage();
+		System.out.println("RANK \t DRIVER \t\t TEAM \t\t\t POINT");
+		System.out.println("-------------------------------------------------------------------------------------");
+		System.out.println();
+		
+		
+    	int prevDriverPoint = 0;
+    	int prevRank = 1;
+    	
+    	List<Driver> sortedList =  
+    			CircuitController.pc.driverListForGrandPix
+        	    .stream()
+        	    .sorted((a, b) -> Integer.compare(b.getDriverPoint(), a.getDriverPoint()))
+        	    .collect(Collectors.toList());
+    	
+    	
+    	for(Driver d : sortedList) {
+    		if(d.getDriverPoint()==prevDriverPoint) { // 앞 인덱스의 드라이버와 동일한 점수일 경우 (동점일경우)
+    			d.setDriverRank(prevRank-1);
+    			prevRank++;
+    		}else {
+    			d.setDriverRank(prevRank);
+    			prevRank++;
+    		}
+    		
+    		System.out.println(d.getDriverRank()+" \t "+d.getDriverName()+" \t\t "+d.getConstructor()+" \t\t "+d.getDriverPoint());
+    		System.out.println();
+    	}
+		
+		
+		
+		System.out.println();
+		System.out.println("=====================================================================================");
+		
+	}	// printChampionshipDriver
+
+	public void printChampionshipConstructor() {
+		System.out.println();
+		dac.printGrandPrixStandingImage();
+		System.out.println("RANK \t TEAM \t\t\t POINT");
+		System.out.println("-------------------------------------------------------------------------------------");
+		System.out.println();
+		
+    	int prevConstructorPoint = 0;
+    	int prevRank = 1;
+    	
+    	List<Constructor> sortedList =  
+    			CircuitController.pc.constructorList
+        	    .stream()
+        	    .sorted((a, b) -> Integer.compare(b.getConstructorPoint(), a.getConstructorPoint()))
+        	    .collect(Collectors.toList());
+    	
+    	
+    	for(Constructor c : sortedList) {
+    		if(c.getConstructorPoint()==prevConstructorPoint) { // 앞 인덱스의 드라이버와 동일한 점수일 경우 (동점일경우)
+    			c.setConstructorRank(prevRank-1);
+    			prevRank++;
+    		}else {
+    			c.setConstructorRank(prevRank);
+    			prevRank++;
+    		}
+    		
+    		System.out.println(c.getConstructorRank()+" \t "+c.getConstructorName()+"\t\t "+c.getConstructorPoint());
+    		System.out.println();
+    	}
+		
+		
+		
+		System.out.println();
+		System.out.println("=====================================================================================");
+		
+	}	// printChampionshipConstructor
+
+
+
+
+	public void printSeasonReport() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+	public void printStartSeasonMent(Driver userDriver) {
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		String txt1 = "Welcome! "+userDriver.getDriverName()+"!";
+		printStringOnebyOne(txt1);
+		String txt2 = "드디어 기다리던 F1 2025 시즌이 시작됐습니다!";
+		printStringOnebyOne(txt2);
+		System.out.println();
+		String txt3 = "이번 시즌에는 총 4개의 그랑프리가 준비되어 있어요.";
+		printStringOnebyOne(txt3);
+		String txt4 = "영국의 실버스톤, 이탈리아의 몬자, 모나코의 몬테카를로, 그리고 일본의 스즈카까지!";
+		printStringOnebyOne(txt4);
+		System.out.println();
+		String txt5 = "당신은 이제 최고의 드라이버들과 어깨를 나란히 하며 이 전설적인 서킷들을 달리게 됩니다.";
+		printStringOnebyOne(txt5);
+		String txt6 = "과연 어떤 전략과 실력으로 우승을 차지할 수 있을까요?";
+		printStringOnebyOne(txt6);
+		System.out.println();
+		String txt7 = "이제 엔진을 켜고, 시즌을 시작해보세요!";
+		printStringOnebyOne(txt7);
+		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+	}
+
+
+
+
+	
+	
+	
+	
+
+}

@@ -1,0 +1,28 @@
+package f1_project;
+
+import java.util.Scanner;
+
+public class PlayerController {
+	
+	// 게임 시작 후 플레이어가 선택한 캐릭터 생성 관련 컨트롤러
+	
+	Scanner sc = new Scanner(System.in); 
+	
+	public String chooseTeam() {
+	
+		String constructor="";
+		
+		return constructor;
+	}
+	
+	
+	public void chooseCircuit(Scanner sc) {
+		System.out.println();
+		
+		
+	}
+	
+	
+	
+
+}

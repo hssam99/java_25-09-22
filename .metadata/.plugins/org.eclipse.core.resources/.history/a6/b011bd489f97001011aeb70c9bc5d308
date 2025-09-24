@@ -1,0 +1,40 @@
+package f1_project;
+
+import java.util.Scanner;
+
+// 기타 게임 컨트롤러
+public class GameController {
+	Scanner sc = new Scanner(System.in);
+	
+	
+	
+	
+	
+	public void printLoadingDot() throws InterruptedException {
+		System.out.print(".");
+		Thread.sleep(500);
+		System.out.print(".");
+		Thread.sleep(500);
+		System.out.print(".");
+		Thread.sleep(500);
+		Thread.sleep(1000);
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+	}
+
+	public void printChampionshipDriver() {
+		System.out.println("랭킹	팀	이름		랩타임 		드라이버 포인트");
+		
+	}
+
+	public void printChampionshipConstructor() {
+		System.out.println("랭킹 	팀이름	컨스트럭터 포인트");
+		
+	}
+	
+	
+	
+
+}

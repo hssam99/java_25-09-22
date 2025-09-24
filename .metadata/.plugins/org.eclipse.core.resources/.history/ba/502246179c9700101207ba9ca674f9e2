@@ -1,0 +1,25 @@
+package f1_project;
+
+public class GameController {
+	
+	// 기타 게임 컨트롤러
+	
+	
+	public void printStartPage() {
+		
+	}
+
+	public void printChampionshipDriver() {
+		System.out.println("랭킹	팀	이름		랩타임 		드라이버 포인트");
+		
+	}
+
+	public void printChampionshipConstructor() {
+		System.out.println("랭킹 	팀이름	컨스트럭터 포인트");
+		
+	}
+	
+	
+	
+
+}

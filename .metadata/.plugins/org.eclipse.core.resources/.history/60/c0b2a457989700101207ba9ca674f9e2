@@ -1,0 +1,76 @@
+package f1_project;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class PlayerController {
+	
+	DotArtController dac = new DotArtController();
+	
+	// 게임 시작 후 플레이어가 선택한 캐릭터 생성 관련 컨트롤러
+	
+	Scanner sc = new Scanner(System.in); 
+	List<Driver> driverList = new ArrayList<>();
+	List<Circuit> circuitList = new ArrayList<>();
+	List<Constructor> constructorList = new ArrayList<>();
+	
+	
+	
+	public void makeConstructorList() {
+		
+	}
+	
+	public void makeDriverList() {
+		Driver Max = new Driver(1, "Redbull", "막스베르스타펜", "27", "네덜란드", 66, 0);
+		driverList.add(Max);
+		Driver Yuki = new Driver(2, "Redbull", "유키츠노다", "25", "일본", 0, 1);
+		driverList.add(Yuki);
+		Driver Leclerc = new Driver(3, "Ferrari", "샤를르끌레르", "27", "모나코", 6, 1);
+		driverList.add(Leclerc);
+		Driver Hamilton = new Driver(4, "Ferrari", "루이스해밀턴", "40", "영국", 105, 0);
+		driverList.add(Hamilton);
+	}
+		
+	
+	public void makeCircuitList() {
+		Circuit silverStone = new Circuit(1,"실버스톤", "영국", 5891.0);
+		Circuit monza = new Circuit(2,"몬자", "이탈리아", 5793.0);
+		Circuit monaco = new Circuit(3,"모나코", "모나코", 3337.0);
+		Circuit shanghai = new Circuit(4,"상하이", "중국", 5451.0);
+	}
+	
+	
+	
+	
+	// 서킷 번호 리턴
+	public int chooseCircuit(Scanner sc) {
+		dac.printcircuitMap();
+		
+		System.out.println("1. 실버스톤 | 2. 몬자 | 3. 모나코 | 4. 상하이");
+		System.out.println("[0] 게임 종료");
+		System.out.print("써킷을 선택하세요 > ");
+		
+		int circuitNum = sc.nextInt();
+		
+		return circuitNum;
+		
+	}
+
+	public int chooseDriver(String constructor) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	public String chooseConstructor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+	
+
+}
